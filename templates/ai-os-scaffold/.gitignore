@@ -1,0 +1,13 @@
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.DS_Store
+.trash/
+
+# _dump/ — local-only scratch / share channel with the LLM. NEVER committed.
+# Ignore the contents of any _dump/ at any depth (top-level + per-task subfolders),
+# but keep the root folder present via its .gitkeep. Before any commit, verify _dump/
+# contents are already captured in the vault.
+_dump/
+!/_dump/
+/_dump/*
+!/_dump/.gitkeep
