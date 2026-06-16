@@ -1,9 +1,10 @@
 ---
 type: person
+title: {{OWNER}}
+description: The owner and sole user of this OS.
 tags: [me]
+timestamp: {{CREATED}}
 created: {{CREATED}}
-updated: {{CREATED}}
-summary: The owner and sole user of this OS.
 provenance: extracted
 ---
 

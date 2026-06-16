@@ -1,7 +1,7 @@
 {
-  "useMarkdownLinks": false,
-  "newLinkFormat": "shortest",
+  "useMarkdownLinks": true,
+  "newLinkFormat": "absolute",
   "alwaysUpdateLinks": true,
   "showFrontmatter": true,
-  "attachmentFolderPath": "Inbox"
+  "attachmentFolderPath": "inbox"
 }

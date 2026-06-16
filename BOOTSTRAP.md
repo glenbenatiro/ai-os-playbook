@@ -8,6 +8,10 @@ the playbook."
 > decisions, working detail). Create remotes with `gh repo create … --private`. This playbook is
 > shareable; the vaults it produces usually are not.
 
+> 📦 Each vault is an [OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+> knowledge bundle — plain markdown + YAML frontmatter, `snake_case` slug filenames in lowercase folders,
+> bundle-relative markdown links, and `index.md`/`log.md` reserved files. See `references/okf_mapping.md`.
+
 ---
 
 ## 0. Prerequisites (human)
@@ -43,15 +47,17 @@ For each AI OS to create (the personal OS, and one per context on this machine):
    cp -r ~/Projects/ai-os-playbook/templates/ai-os-scaffold "<target>/<name>-os"
    ```
    (For the personal OS the target is `~/Projects/personal-os`.)
-2. Rename the owner seed note: `People/{{OWNER}}.md` → `People/<Owner Name>.md`.
+2. Rename the owner seed note: `people/{{OWNER_SLUG}}.md` → `people/<owner_slug>.md` (snake_case, e.g.
+   `people/jane_doe.md`).
 3. Fill placeholders in every file (see the table in §4 — the fill sweeps all `*.md`, including
    `AGENTS.md`). Replace `{{...}}` tokens; delete placeholder lines that don't apply (e.g. the privacy
    rule for a single-party context). The scaffold already includes both entrypoints: `CLAUDE.md` (the
    canonical kernel contract) and `AGENTS.md` (the LLM-agnostic pointer to it).
 4. Write the folder `CLAUDE.md` (context folders only) from `templates/client-CLAUDE.md` at
    `~/Projects/<context>/CLAUDE.md`.
-5. Seed real content: create `Organizations/<Org>.md`, fill the owner note, and stub the known project
-   subfolders under `Projects/`. Update `Home.md` so nothing is orphaned.
+5. Seed real content: create `organizations/<org_slug>.md`, fill the owner note, and stub the known
+   project subfolders under `projects/`. Update `home.md` and the relevant `index.md` files so nothing is
+   orphaned.
 6. Initialize git (private remote, if versioning):
    ```bash
    cd "<target>/<name>-os" && git init && git add -A   # commit only when you approve
@@ -74,8 +80,9 @@ Then, once:
 
 ## 3. Verify
 
-- Each `<...>-os/` has `CLAUDE.md`, `System/`, `Home.md`, `_meta/taxonomy.md`, `.obsidian/`, and opens
-  in Obsidian with a connected graph (no orphan `Home`).
+- Each `<...>-os/` has `CLAUDE.md`, `system/`, `home.md`, the root `index.md` (with `okf_version: "0.1"`),
+  `log.md`, `_meta/taxonomy.md`, `.obsidian/`, and opens in Obsidian with a connected graph (no orphan
+  `home`). Every non-reserved `.md` has a non-empty `type` (OKF conformance).
 - From a context folder, ask the agent a context question — it should consult that context's `-os/`
   vault without being told the path (the generic routing rule in `~/.claude/CLAUDE.md`).
 - `/dream <vault>` runs, quarantines (never deletes), and writes `_insights.md` + a report.
@@ -90,6 +97,7 @@ Tokens used across the templates. Fill per AI OS:
 |---|---|---|
 | `{{OWNER}}` | Owner full name | `Jane Doe` |
 | `{{OWNER_SHORT}}` | First name / short ref | `Jane` |
+| `{{OWNER_SLUG}}` | Owner name as a `snake_case` slug (owner note filename) | `jane_doe` |
 | `{{OWNER_ROLE}}` | Role | `automation engineer` |
 | `{{LOCATION}}` | Base location | `Anytown` |
 | `{{EMAIL}}` | Contact email | `you@example.com` |
@@ -101,8 +109,8 @@ Tokens used across the templates. Fill per AI OS:
 | `{{WORKING_WINDOW}}` | Working hours for this context | `9 AM–12 PM, weekdays` |
 | `{{ENGAGEMENT}}` | Engagement type | `Part-time` |
 | `{{HISTORY_NOTE}}` | History with the context | _(from intake)_ |
-| `{{ORG_EXAMPLES}}` / `{{ORG_LINKS}}` | Org notes for `CLAUDE.md` / `Home.md` | `[[Acme Corp]]` |
-| `{{TOOL_LINKS}}` | Initial tool links for `Home.md` | `[[Claude]] · [[n8n]]` |
+| `{{ORG_EXAMPLES}}` / `{{ORG_LINKS}}` | Org notes for `CLAUDE.md` / `home.md` | `[Acme Corp](/organizations/acme_corp.md)` |
+| `{{TOOL_LINKS}}` | Initial tool links for `home.md` | `[Claude](/tools/claude.md) · [n8n](/tools/n8n.md)` |
 | `{{CREATED}}` | Today's ISO date | `2026-01-01` |
 | `{{PRIVACY_RULE}}` | Privacy boundary text (CLAUDE.md rule 11) | see §5 |
 | `{{PRINCIPLE_PRIVACY}}` | Privacy principle (Manifesto) | see §5 |
@@ -118,7 +126,7 @@ Tokens used across the templates. Fill per AI OS:
     notes `personal`; write specs/decisions so they could feed a shared brain without leakage. When in
     doubt, ask before surfacing a personal item into a shareable context."
   - `{{PRINCIPLE_PRIVACY}}` → "Private by default; designed to share a layer. Keep shareable knowledge
-    separable from personal items (see the privacy rule in [[Conventions]])."
+    separable from personal items (see the privacy rule in [Conventions](/system/conventions.md))."
   - `{{TAXONOMY_PRIVACY}}` → `- shareable — could be exported to a shared brain.` /
     `- personal — owner-specific; never feeds a shared brain.`
 - Single-party context / personal OS (no shared brain): set `{{PRIVACY_RULE}}` → "This vault is private

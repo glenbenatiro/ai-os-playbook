@@ -27,9 +27,11 @@ in each project folder's own `CLAUDE.md` — this file stays general.
 
 ## How this is organized — the AI OS knowledge layer
 
-My knowledge layer is a set of AI Operating Systems (AI OS) — Karpathy-style LLM-OS vaults:
-Obsidian-readable markdown, wikilinked, graph-viewable, and maintained by the agent, not hand-edited.
-The canonical structure and the machine-bootstrap procedure live in `~/Projects/ai-os-playbook/`.
+My knowledge layer is a set of AI Operating Systems (AI OS) — Karpathy-style LLM-OS vaults and
+[OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) knowledge bundles:
+Obsidian-readable markdown + YAML frontmatter + bundle-relative links, graph-viewable, and maintained by
+the agent, not hand-edited. The canonical structure and the machine-bootstrap procedure live in
+`~/Projects/ai-os-playbook/`.
 
 The layers:
 - User level (this file) — who I am, global conventions.
@@ -41,7 +43,7 @@ The layers:
 AI OS routing rule (generic — works for any context, no per-context edits):
 > When working under `~/Projects/<context>/`, look for a `<context>-os/` vault. If one exists, that is
 > that context's AI OS: read it for context before asking me something it might already know (start at
-> its `Home.md`), and keep it updated per its own `CLAUDE.md` and `System/Conventions.md`. The personal
+> its `home.md`), and keep it updated per its own `CLAUDE.md` and `system/conventions.md`. The personal
 > layer is `~/Projects/personal-os/`. The OS holds context, not code — code stays in the project repos;
 > the OS holds reusable context and pointers to it.
 

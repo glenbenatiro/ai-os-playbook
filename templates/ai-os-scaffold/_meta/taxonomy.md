@@ -1,24 +1,24 @@
 ---
 type: system
+title: Taxonomy
+description: The controlled vocabulary of tags allowed in this vault. New tags get registered here first.
 tags: [system, taxonomy]
+timestamp: {{CREATED}}
 created: {{CREATED}}
-updated: {{CREATED}}
-summary: The controlled vocabulary of tags allowed in this vault. New tags get registered here first.
 provenance: extracted
 ---
 
 # Taxonomy
 
-The **controlled vocabulary** of tags for this vault. Tags are lowercase-kebab. Before inventing a
+The **controlled vocabulary** of tags for this vault. Tags are lowercase `snake_case`. Before inventing a
 tag, check this list. To add one, append it here with a one-line definition in the same edit that
 introduces it. The `/dream` skill flags any tag used in the vault that isn't registered here.
 
 ## Structural (note role)
-- `home` — the root MOC ([[Home]]).
+- `home` — the root MOC ([home](/home.md)).
 - `moc` — a map-of-content / index hub.
 - `system` — meta-notes about the OS itself.
 - `conventions` — the rules note.
-- `changelog` — the structural-change log.
 - `taxonomy` — this note.
 - `philosophy` — the manifesto.
 

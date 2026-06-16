@@ -9,21 +9,25 @@ anyone who wants a durable, self-maintaining context store for their AI agents.
 
 ## What an AI OS is
 
-A Karpathy-style LLM-OS: a plain-markdown, Obsidian-readable vault (wikilinked notes + a graph view)
-that an LLM maintains as its kernel. You speak in natural language; the agent does the reading, writing,
-linking, and housekeeping. The vault is durable memory (the "disk"); the context window is RAM; Obsidian
-is the display. It's the durable context store so you never have to repeat yourself to an LLM twice.
+A Karpathy-style LLM-OS: a plain-markdown, Obsidian-readable vault — an
+[OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) knowledge bundle
+(markdown + YAML frontmatter + bundle-relative links, viewed as a graph) — that an LLM maintains as its
+kernel. You speak in natural language; the agent does the reading, writing, linking, and housekeeping. The
+vault is durable memory (the "disk"); the context window is RAM; Obsidian is the display. It's the durable
+context store so you never have to repeat yourself to an LLM twice.
 
 This is the same lineage as Karpathy's "LLM OS" framing and the public "LLM Wiki" pattern — see each
-vault's `System/OS Manifesto.md`.
+vault's `system/os_manifesto.md`.
 
 > Not to be confused with the academic *agiresearch/AI OS* (an agent-runtime OS). Same name, different thing.
 
 ### LLM-agnostic by design
 
-The vaults aren't tied to any one model or tool. The knowledge is plain markdown + `[[wikilinks]]` +
-YAML — any agent (Claude Code, Codex, Cursor, Gemini CLI, Windsurf, a local model) or even `grep` can
-read and write it. The operating contract ships as two entrypoints describing the same rules: `CLAUDE.md`
+The vaults aren't tied to any one model or tool. The knowledge is plain markdown + YAML frontmatter +
+bundle-relative links, conformant to
+[OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) — any agent (Claude
+Code, Codex, Cursor, Gemini CLI, Windsurf, a local model), any OKF-aware tool, or even `grep` can read and
+write it. The operating contract ships as two entrypoints describing the same rules: `CLAUDE.md`
 (Claude Code, canonical) and `AGENTS.md` (the cross-tool standard the others read). Point any tool's own
 rules file (`.cursor/rules`, `GEMINI.md`, …) at `CLAUDE.md` and keep it as the single source — never
 fork the rules. The `/dream` maintenance routine is a Claude skill, but its spec (`skills/dream/SKILL.md`)
@@ -50,12 +54,14 @@ ai-os-playbook/
   BOOTSTRAP.md               # how an agent scaffolds the AI OS on a fresh machine
   CHANGELOG.md               # changes to the playbook itself
   LICENSE                    # MIT
+  references/
+    okf_mapping.md           # OKF v0.1 <-> AI OS field/structure mapping (the standard this conforms to)
   skills/
-    dream/SKILL.md           # the /dream vault-consolidation skill (install to ~/.claude/skills/)
+    dream/SKILL.md           # the /dream vault-consolidation + OKF-migration skill (install to ~/.claude/skills/)
   templates/
     user-CLAUDE.md           # -> ~/.claude/CLAUDE.md
     client-CLAUDE.md         # -> ~/Projects/<context>/CLAUDE.md
-    ai-os-scaffold/           # the canonical vault skeleton (copied per context)
+    ai-os-scaffold/           # the canonical vault skeleton (OKF v0.1 bundle; copied per context)
 ```
 
 ## Keep AI OS repos private
@@ -66,16 +72,20 @@ produces generally are not.
 
 ## The canonical conventions (what every vault inherits)
 
-- Kernel contract (`<vault>/CLAUDE.md`): proactive linking, stub-on-mention, update-the-index,
+- OKF v0.1 conformance: every vault is an OKF knowledge bundle (a non-empty `type` on every note;
+  `index.md`/`log.md` reserved files). See `references/okf_mapping.md`.
+- Kernel contract (`<vault>/CLAUDE.md`): proactive linking, stub-on-mention, maintain-the-index,
   log-structural-changes, faithful edits, never-silently-delete, ISO dates, flag-uncertainty, privacy.
-- Frontmatter: `type, status, tags, created, updated, summary, provenance`
-  (`provenance` ∈ `extracted | inferred | to-confirm`).
-- Structure: `Home.md` (MOC) · `System/` (Manifesto, Conventions, Changelog) · `People/`
-  `Organizations/` `Tools/` `Projects/` `Meetings/` `Daily/` · `Inbox/` (raw capture) ·
-  `_meta/taxonomy.md` (controlled tag vocabulary) · `_insights.md` (graph analytics) · `_dump/`
-  (prune quarantine) · `.obsidian/` (graph-view config).
-- Linking: `[[wikilinks]]` for every entity; stubs so links always resolve; link up + across.
-- Lifecycle: `Inbox → wiki → schema`. Periodic `/dream` deep-clean.
+- Frontmatter: `type, title, description, tags, timestamp` + extensions
+  `created, provenance, status, resource` (`provenance` ∈ `extracted | inferred | to-confirm`).
+- Filenames are `snake_case` slugs in lowercase folders; the human name lives in `title`.
+- Structure: `home.md` (MOC) · root `index.md` (declares `okf_version`) · `log.md` (change history) ·
+  `system/` (manifesto, conventions) · `people/ organizations/ tools/ projects/ meetings/ daily/` ·
+  `inbox/` (raw capture) · `_meta/taxonomy.md` · `_insights.md` (graph analytics) · `_dump/` (prune
+  quarantine) · `.obsidian/` (graph-view config).
+- Linking: bundle-relative markdown links `[Text](/folder/slug.md)` for every entity; stubs so links
+  always resolve; link up + across.
+- Lifecycle: `inbox → wiki → schema`. Periodic `/dream` deep-clean (also performs the OKF migration).
 
 ## How to evolve the structure (the rule that keeps it scalable)
 

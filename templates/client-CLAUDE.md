@@ -7,7 +7,7 @@ work, and points every agent at the AI operating system where that context lives
 ## What {{CLIENT_NAME}} is
 
 - {{CLIENT_DESCRIPTION}}
-- The canonical, always-current description lives in the OS (`{{OS_DIR}}/Organizations/{{CLIENT_NAME}}.md`).
+- The canonical, always-current description lives in the OS (`{{OS_DIR}}/organizations/<client_slug>.md`).
 
 ## How {{OWNER}} works for them
 
@@ -22,14 +22,15 @@ There is an AI operating system for {{CLIENT_NAME}} in this folder:
 
 > `{{OS_DIR}}/`
 
-It is a Karpathy-style LLM-OS: an Obsidian-readable markdown vault (wikilinked notes + a graph view)
-that an LLM maintains as its kernel. It is the durable context store for everything about
-{{CLIENT_NAME}} — the org, people, tools, projects, meetings, decisions.
+It is a Karpathy-style LLM-OS and an [OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
+knowledge bundle: an Obsidian-readable markdown vault (notes + bundle-relative links, viewed as a graph)
+that an LLM maintains as its kernel. It is the durable context store for everything about {{CLIENT_NAME}}
+— the org, people, tools, projects, meetings, decisions.
 
 Rules for any LLM/agent working anywhere in this folder:
 
 1. Consult it first. Before asking {{OWNER_SHORT}} for context that might already be known (who someone
-   is, what a project does, how something works), check the OS — start at `{{OS_DIR}}/Home.md`.
+   is, what a project does, how something works), check the OS — start at `{{OS_DIR}}/home.md`.
 2. Feed it. When you learn something broadly useful across projects (a person, a process, a tool, a
    decision, a fact about the org), store it in the OS. Describe the new information in natural language
    and let the OS kernel file and link it — or follow the OS's own `CLAUDE.md` operating contract.
@@ -39,5 +40,5 @@ Rules for any LLM/agent working anywhere in this folder:
 4. One-off, project-only details (a specific bug, a local config) stay in the project — don't clutter
    the OS with them. The bar for the OS is "useful beyond this one task/project."
 
-The OS has its own operating contract at `{{OS_DIR}}/CLAUDE.md` and rules in its `System/Conventions.md`
+The OS has its own operating contract at `{{OS_DIR}}/CLAUDE.md` and rules in its `system/conventions.md`
 — follow those when writing into the vault. Run `/dream` on it periodically to keep the graph tidy.
