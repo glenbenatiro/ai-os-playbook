@@ -46,7 +46,8 @@ that keeps the OS coherent, then tell {{OWNER_SHORT}} what you did.
    convention change, absorbed project). Routine content edits don't need a log entry.
 6. Edit small and faithfully. Prefer surgical edits. When relocating or absorbing external content
    (transcripts, pasted notes), preserve the substance — relocate + link + add frontmatter; don't rewrite
-   meaning.
+   meaning. Meetings specifically follow the foldered raw-source + paired-summary rule — see
+   [Meetings — raw sources + paired summary](#meetings--raw-sources--paired-summary).
 7. Digest the `inbox/`, don't rewrite sources. `inbox/` is the raw, unprocessed capture zone. Turn raw
    input into clean, linked notes in their proper home, then clear the inbox item — but never silently
    alter the meaning of source material.
@@ -64,6 +65,25 @@ that keeps the OS coherent, then tell {{OWNER_SHORT}} what you did.
     callout rather than stating it as settled. Mark synthesized claims `provenance: inferred`.
 12. Respect the privacy boundary. {{PRIVACY_RULE}}
 
+## Meetings — raw sources + paired summary
+
+Each meeting is a **folder**: `meetings/<slug>/` (snake_case, e.g. `meetings/2026_05_18_jane_kickoff/`).
+
+- **Summary (the folder note):** `meetings/<slug>/<slug>.md`, `type: meeting` — the canonical, scannable
+  record. Capture who/context, decisions, action items (each linked to its project/person), and a link to
+  every raw source. This is the note the rest of the vault links to.
+- **Raw sources:** every transcript / pasted chat / notes goes **verbatim** under `meetings/<slug>/raw/`,
+  one file per source — `type: meeting-transcript` for speech-to-text, `type: meeting-source` for pasted
+  text. Raw files are ground-truth and exempt from full frontmatter (a minimal `type` + `source:` line is
+  enough; see [Conventions](/system/conventions.md)).
+- **The pairing is mandatory.** A raw source must never be committed without its paired summary — write
+  the summary in the **same turn**. A raw transcript with no summary is a capture bug: nobody re-reads
+  60KB of speech-to-text to find a decision.
+- **No `index.md` inside a meeting folder** — the slug-named summary is the entry point (a folder note).
+  The parent [meetings/index.md](/meetings/index.md) lists each meeting, linking to its summary.
+- A transcript dropped in `_dump/` gets its *content* captured into the meeting folder (a tracked path);
+  never leave the only copy in gitignored `_dump/` (see contract rule 9).
+
 ## Filenames & links (OKF)
 
 - Filenames are `snake_case` slugs inside lowercase folders; the human name lives in the `title` field
@@ -79,7 +99,8 @@ that keeps the OS coherent, then tell {{OWNER_SHORT}} what you did.
 - `organizations/` — orgs ({{ORG_EXAMPLES}}).
 - `tools/` — the working stack for this context (added as it's discovered).
 - `projects/` — epics/projects. Each gets its own note (an epic gets a folder + MOC note).
-- `meetings/` — 1:1s, calls, transcripts. Lift action items into the relevant project notes.
+- `meetings/` — one folder per meeting (`meetings/<slug>/`): a slug-named summary note + a `raw/`
+  subfolder holding verbatim transcripts/sources. Lift action items into the relevant project notes.
 - `daily/` — daily notes / log.
 - `inbox/` — capture zone for raw, unsorted input. Process it into the right home, then clear it.
 - `system/` — how the OS works ([OS Manifesto](/system/os_manifesto.md), [Conventions](/system/conventions.md)).

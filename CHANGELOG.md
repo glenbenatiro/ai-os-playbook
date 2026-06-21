@@ -2,6 +2,21 @@
 
 Changes to the playbook itself (the canonical structure + bootstrap). Conventional-commit style.
 
+## 2026-06-21 — Foldered raw-source + paired-summary meeting convention
+
+Codified how meeting transcripts/sources are stored, so every vault inherits it (previously only ad-hoc).
+Changes to the canonical scaffold:
+
+- **`templates/ai-os-scaffold/CLAUDE.md`** — new "Meetings — raw sources + paired summary" section: each
+  meeting is a folder `meetings/<slug>/` with a slug-named summary (the folder note) + a `raw/` subfolder
+  holding verbatim transcripts/sources, one file per source. The raw↔summary pairing is **mandatory**
+  (write the summary in the same turn); no `index.md` inside a meeting folder; `_dump/` transcripts get
+  their content captured into the folder. Rule 6 cross-links the section.
+- **`templates/ai-os-scaffold/system/conventions.md`** — added `meeting-transcript` / `meeting-source`
+  to the `type` enum + note-types table (living in `meetings/<slug>/raw/`); a "Raw records exempt"
+  frontmatter bullet; rewrote the meeting-naming rule to the foldered shape; added a lifecycle pairing
+  reminder.
+
 ## 2026-06-16 — Full OKF v0.1 conformance
 
 Migrated the playbook to conform to Google's [OKF (Open Knowledge Format) v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf).
