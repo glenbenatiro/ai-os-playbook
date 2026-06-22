@@ -84,6 +84,21 @@ Each meeting is a **folder**: `meetings/<slug>/` (snake_case, e.g. `meetings/202
 - A transcript dropped in `_dump/` gets its *content* captured into the meeting folder (a tracked path);
   never leave the only copy in gitignored `_dump/` (see contract rule 9).
 
+## Raw context — routing
+
+Any raw artifact (transcript, chat/DM, email, pasted note, brain-dump) routes by three questions, in order:
+
+1. **Tied to a meeting/event?** → `meetings/<slug>/raw/` with a paired summary (see Meetings above).
+2. **Project-specific working material** (build inputs, specs, data)? → the **project repo** (e.g.
+   `docs/sources/`), kept verbatim next to the docs it feeds; the OS keeps only a digested note + a
+   pointer to the repo.
+3. **Standalone but reusable context** (a decision email, a chat that sets direction, a brain-dump about a
+   person/org)? → `sources/`, verbatim (`type: source`, with `kind` / `from` / `date`) + a short digest
+   linking to the note(s) it feeds.
+
+The test between 2 and 3 is the OS bar — *"useful beyond this one task/project"* → `sources/`; otherwise
+the repo. Always keep the raw **and** a digest, and link them.
+
 ## Filenames & links (OKF)
 
 - Filenames are `snake_case` slugs inside lowercase folders; the human name lives in the `title` field
@@ -101,6 +116,8 @@ Each meeting is a **folder**: `meetings/<slug>/` (snake_case, e.g. `meetings/202
 - `projects/` — epics/projects. Each gets its own note (an epic gets a folder + MOC note).
 - `meetings/` — one folder per meeting (`meetings/<slug>/`): a slug-named summary note + a `raw/`
   subfolder holding verbatim transcripts/sources. Lift action items into the relevant project notes.
+- `sources/` — standalone verbatim raw captures (chat/email/note) that are reusable context but **not**
+  tied to a meeting; each `type: source` + a short digest. (Project-specific raw goes in the project repo.)
 - `daily/` — daily notes / log.
 - `inbox/` — capture zone for raw, unsorted input. Process it into the right home, then clear it.
 - `system/` — how the OS works ([OS Manifesto](/system/os_manifesto.md), [Conventions](/system/conventions.md)).

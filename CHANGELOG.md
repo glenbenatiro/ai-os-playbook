@@ -2,6 +2,21 @@
 
 Changes to the playbook itself (the canonical structure + bootstrap). Conventional-commit style.
 
+## 2026-06-22 — Raw-context routing + `sources/` folder
+
+Generalized raw-context handling beyond meetings. Standalone raw context (a chat/DM, email, pasted note,
+brain-dump) that's reusable but not tied to a meeting now has a home; project-specific raw routes to the
+build repo. Changes to the canonical scaffold:
+
+- **`templates/ai-os-scaffold/CLAUDE.md`** — new "Raw context — routing" section: a 3-way rule (meeting →
+  `meetings/<slug>/raw/`; project working material → the project repo `docs/sources/`; standalone reusable
+  → `sources/`), with the OS bar ("useful beyond this one task/project") as the tiebreak. Added a
+  `sources/` bullet to "Where things go".
+- **`templates/ai-os-scaffold/system/conventions.md`** — added `source` to the `type` enum + note-types
+  table (lives in `sources/`); added `sources/` to the lowercase-folders list; extended "Raw records
+  exempt" to cover `sources/`; added a Lifecycle routing pointer.
+- **`templates/ai-os-scaffold/sources/index.md`** — new folder MOC; **`home.md`** lists `sources/`.
+
 ## 2026-06-21 — Foldered raw-source + paired-summary meeting convention
 
 Codified how meeting transcripts/sources are stored, so every vault inherits it (previously only ad-hoc).

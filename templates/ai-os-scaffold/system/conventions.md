@@ -23,7 +23,7 @@ strongly recommended here (order follows OKF's priority):
 
 ```yaml
 ---
-type: person | organization | tool | project | epic | task | meeting | meeting-transcript | meeting-source | daily | system | moc | reference
+type: person | organization | tool | project | epic | task | meeting | meeting-transcript | meeting-source | source | daily | system | moc | reference
 title: Jane Doe          # human display name — the filename is a slug, so the name lives here
 description:                   # one sentence — a cheap-to-scan preview so the kernel can skim without the body
 tags: []                       # lowercase snake_case; must be registered in /_meta/taxonomy.md
@@ -46,15 +46,16 @@ resource:                      # canonical URI, when the note maps to one (tool 
 - Producers may add any other keys; consumers must preserve unknown keys and never reject a note over
   them (OKF §4.1).
 - **Raw records exempt:** verbatim files under `meetings/<slug>/raw/` (`type: meeting-transcript` /
-  `meeting-source`) are ground-truth sources — they may keep their original content with only minimal
-  frontmatter (`type` + a `source:` line). Every other note gets the full frontmatter.
+  `meeting-source`) and standalone captures in `sources/` (`type: source`) are ground-truth sources —
+  they may keep their original content with only minimal frontmatter (`type` + a `source:`/`from:` line).
+  Every other note gets the full frontmatter.
 
 ## Filenames & folders
 
 - **Filenames are `snake_case` slugs**, no spaces — `Jane Doe` → `people/jane_doe.md`. The
   readable name lives in the `title` field.
 - **Folders are lowercase** — `people/`, `organizations/`, `tools/`, `projects/`, `meetings/`,
-  `daily/`, `inbox/`, `system/`.
+  `sources/`, `daily/`, `inbox/`, `system/`.
 - **Kept verbatim** (external-tool or OKF-reserved names, not slugged): `CLAUDE.md`, `AGENTS.md`,
   `README.md`, `index.md`, `log.md`, and the `_meta/`, `_dump/`, `.obsidian/` paths.
 
@@ -71,6 +72,7 @@ resource:                      # canonical URI, when the note maps to one (tool 
 | `meeting` | a meeting summary (the folder note) | `meetings/<slug>/` |
 | `meeting-transcript` | a verbatim speech-to-text transcript | `meetings/<slug>/raw/` |
 | `meeting-source` | a verbatim pasted source (chat, notes, email) | `meetings/<slug>/raw/` |
+| `source` | a standalone verbatim capture (chat/email/note), reusable context | `sources/` |
 | `daily` | a daily log note | `daily/` |
 | `reference` | a durable external pointer (repo, dashboard, link) | anywhere |
 | `system` | meta-notes about the OS | `system/` |
@@ -125,6 +127,9 @@ Use these OKF section headings when they apply: `# Overview`, `# Schema`, `# Exa
   than creating a near-duplicate.
 - **Meetings (raw + summary):** never file a raw transcript/source without its paired summary in the same
   turn — see [CLAUDE.md](/CLAUDE.md) → "Meetings".
+- **Raw context routing:** route any raw artifact by [CLAUDE.md](/CLAUDE.md) → "Raw context — routing" —
+  meeting → `meetings/<slug>/raw/`; project working material → the project repo; standalone reusable →
+  `sources/`.
 - **Schema (`system/` + `_meta/`):** the rules and taxonomy that keep the wiki coherent. When the shape
   of the knowledge changes, the schema changes first, then notes follow.
 

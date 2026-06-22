@@ -28,6 +28,7 @@ The machine-facing folder listing is [index](/index.md).
 
 ## 🗓️ Running input
 - **`meetings/`** — 1:1s and planning calls
+- **`sources/`** — standalone raw captures (chat/email/note), not tied to a meeting
 - **`daily/`** — daily log
 - **`inbox/`** — unsorted capture (process me!)
 
