@@ -17,9 +17,10 @@ the playbook."
 ## 0. Prerequisites (human)
 
 1. Install your agent CLI (e.g. Claude Code).
-2. Create `~/Projects/` and clone this playbook into it:
+2. Create `~/Projects/personal/` and clone this playbook into it. The playbook and the personal OS
+   both live under `personal/`, alongside one folder per client context:
    ```bash
-   mkdir -p ~/Projects && cd ~/Projects
+   mkdir -p ~/Projects/personal && cd ~/Projects/personal
    git clone <ai-os-playbook remote> ai-os-playbook
    ```
 3. From `~/Projects/`, start the agent and say: "Set up my AI OS from the playbook."
@@ -44,9 +45,10 @@ For each AI OS to create (the personal OS, and one per context on this machine):
 
 1. Copy the scaffold:
    ```bash
-   cp -r ~/Projects/ai-os-playbook/templates/ai-os-scaffold "<target>/<name>-os"
+   cp -r ~/Projects/personal/ai-os-playbook/templates/ai-os-scaffold "<target>/<name>-os"
    ```
-   (For the personal OS the target is `~/Projects/personal-os`.)
+   (Client contexts live at `~/Projects/<context>/<context>-os`; the personal OS at
+   `~/Projects/personal/<name>-os`.)
 2. Rename the owner seed note: `people/{{OWNER_SLUG}}.md` → `people/<owner_slug>.md` (snake_case, e.g.
    `people/jane_doe.md`).
 3. Fill placeholders in every file (see the table in §4 — the fill sweeps all `*.md`, including
@@ -72,7 +74,7 @@ Then, once:
 8. Install the Dream skill so `/dream` works everywhere:
    ```bash
    mkdir -p ~/.claude/skills/dream
-   cp ~/Projects/ai-os-playbook/skills/dream/SKILL.md ~/.claude/skills/dream/SKILL.md
+   cp ~/Projects/personal/ai-os-playbook/skills/dream/SKILL.md ~/.claude/skills/dream/SKILL.md
    ```
 9. Run a first `/dream` per vault to validate links and generate `_insights.md`.
 
