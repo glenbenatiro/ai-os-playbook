@@ -3,11 +3,6 @@
 .DS_Store
 .trash/
 
-# _dump/ — local-only scratch / share channel with the LLM. NEVER committed.
-# Ignore the contents of any _dump/ at any depth (top-level + per-task subfolders),
-# but keep the root folder present via its .gitkeep. Before any commit, verify _dump/
-# contents are already captured in the vault.
+# _dump/ — RETIRED as an OS convention (2026-09-03). Kept as a one-line guard only, so a
+# stray scratch drop can never be committed. It is no longer part of the vault structure.
 _dump/
-!/_dump/
-/_dump/*
-!/_dump/.gitkeep

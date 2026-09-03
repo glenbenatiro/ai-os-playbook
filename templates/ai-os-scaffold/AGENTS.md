@@ -40,7 +40,7 @@ change history).
 3. OKF-conformant frontmatter on every note: `type` (required, non-empty), `title`, `description`,
    `tags`, `timestamp`, plus extensions `created`/`provenance`/`status`/`resource`. Tags must be
    registered in `_meta/taxonomy.md`. Filenames are `snake_case` slugs in lowercase folders.
-4. Never silently delete; don't invent. Quarantine prune candidates to `_dump/`; flag unconfirmed facts
+4. Never silently delete; don't invent. Quarantine prune candidates to `.trash/`; flag unconfirmed facts
    with a `> ⚠️ **to confirm**` callout and `provenance: to-confirm`.
 5. Keep it coherent. Update the folder's `index.md` / MOC and append to `log.md` on structural changes;
    convert relative dates to ISO against {{OWNER_SHORT}}'s working window.

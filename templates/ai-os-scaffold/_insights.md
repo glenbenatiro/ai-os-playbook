@@ -25,7 +25,7 @@ _none yet_
 ## Suggested links (unlinked mentions of existing notes)
 _none yet_
 
-## Prune candidates (stale / empty / superseded → review in `_dump/`)
+## Prune candidates (stale / empty / superseded → review in `.trash/`)
 _none yet_
 
 ## Off-taxonomy tags

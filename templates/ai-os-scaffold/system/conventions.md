@@ -57,7 +57,7 @@ resource:                      # canonical URI, when the note maps to one (tool 
 - **Folders are lowercase** — `people/`, `organizations/`, `tools/`, `projects/`, `meetings/`,
   `sources/`, `daily/`, `inbox/`, `system/`.
 - **Kept verbatim** (external-tool or OKF-reserved names, not slugged): `CLAUDE.md`, `AGENTS.md`,
-  `README.md`, `index.md`, `log.md`, and the `_meta/`, `_dump/`, `.obsidian/` paths.
+  `README.md`, `index.md`, `log.md`, and the `_meta/` and `.obsidian/` paths.
 
 ## Note types
 
@@ -138,7 +138,6 @@ Use these OKF section headings when they apply: `# Overview`, `# Schema`, `# Exa
 - After any structural change, update the relevant `index.md` / MOC and append an entry to [log](/log.md).
 - Keep `inbox/` empty over time — process captures into their real home.
 - Flag unconfirmed facts with a `> ⚠️ **to confirm**` callout rather than asserting them.
-- Run `/dream` periodically for the deep clean (re-link, dedup, prune-to-`_dump/`, rebuild indexes).
-- `_dump/` is local-only scratch (raw drops + prune quarantine): gitignored, never committed or pushed.
+- Run `/dream` periodically for the deep clean (re-link, dedup, prune-to-`.trash/`, rebuild indexes).
   Before any commit, verify its contents are already ingested into the vault; flag anything that isn't
   rather than committing or deleting it.

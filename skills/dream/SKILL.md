@@ -25,7 +25,7 @@ Your job is to comb the whole vault and groom it back to the conventions — and
   - `interactive` (default): apply safe changes directly; **propose** anything destructive or ambiguous
     (merges, moves, prunes, a first-time OKF migration) and ask before doing them.
   - `unattended` (for cron / `/schedule`): apply safe changes; for anything destructive or ambiguous,
-    **quarantine to `_dump/` and report** — never delete, never guess on a risky merge.
+    **quarantine to `.trash/` and report** — never delete, never guess on a risky merge.
 
 ## 1. Inventory (read before you write)
 
@@ -47,7 +47,7 @@ c. **Rewrite links** across all notes using the map: `[[Name]]` → `[Name](/fol
    Stubs (targets with no file) link to the intended slug path — OKF tolerates them.
 d. **Rename** files (`git mv` so renames show as renames) to the new paths; lowercase the folders. Keep
    these names **verbatim**: `CLAUDE.md`, `AGENTS.md`, `README.md`, `index.md`, `log.md`, `_meta/`,
-   `_dump/`, `.obsidian/`.
+   `.obsidian/`.
 e. **Frontmatter:** add `title` (the old human name); rename `summary`→`description`, `updated`→`timestamp`;
    ensure a non-empty `type`; keep `created`/`provenance`/`status`/`resource`. Add frontmatter
    (`type: system`) to `CLAUDE.md`/`AGENTS.md`/`README.md` if missing.
@@ -92,7 +92,7 @@ g. **Verify** (step 8) that no `[[wikilinks]]` remain and every md-link path res
 ## 7. Prune — safely
 
 - Identify **stale / empty / superseded / orphaned** notes. Do **not** delete them. **Move** each to
-  `_dump/` with a one-line reason appended to the note (`> dumped <date>: <why>`), and list them in the
+  `.trash/` with a one-line reason appended to the note (`> dumped <date>: <why>`), and list them in the
   report for the owner's decision. Honour the vault's "never silently delete" rule even unattended.
 
 ## 8. Rebuild indexes, insights & conformance
@@ -102,7 +102,7 @@ g. **Verify** (step 8) that no `[[wikilinks]]` remain and every md-link path res
   `- [Title](slug.md) — description`.
 - **Regenerate `_insights.md`** (overwrite it): hubs (most-linked), orphans (no links in or out),
   broken/unresolved links remaining, suggested links you did *not* auto-apply, prune candidates now in
-  `_dump/`, off-taxonomy tags, and an **OKF-conformance** section (notes missing a non-empty `type`,
+  `.trash/`, off-taxonomy tags, and an **OKF-conformance** section (notes missing a non-empty `type`,
   unparseable frontmatter, malformed `index.md`/`log.md`, any remaining `[[wikilinks]]`). Set its
   `timestamp` and the "Last run" line to today's date.
 
@@ -112,15 +112,15 @@ g. **Verify** (step 8) that no `[[wikilinks]]` remain and every md-link path res
   `**Creation**` / `**Deprecation**` prefixes) summarizing the structural changes.
 - End your turn with a **run report**: what you changed (counts: links added, stubs created, notes
   merged/moved/dumped, frontmatter fixed, notes migrated to OKF), and a clear **"needs your decision"**
-  list (everything in `_dump/`, risky merges you held back, new tags you added). In `interactive` mode,
+  list (everything in `.trash/`, risky merges you held back, new tags you added). In `interactive` mode,
   this is where you ask about the proposals you surfaced.
 
 ## Guardrails
 
-- **Information is never lost** — prune = quarantine to `_dump/`, never `rm`.
-- **`_dump/` is local-only — never commit it.** It is gitignored scratch (raw drops + prune quarantine).
-  If a run commits (e.g. unattended/cron), never stage or push `_dump/`; surface its contents in the
-  report instead. Before any commit, confirm `_dump/` items are already reflected in the vault.
+- **Information is never lost** — prune = quarantine to `.trash/`, never `rm`.
+- **`.trash/` is local-only — never commit it.** It is gitignored quarantine for prune
+  candidates. If a run commits (e.g. unattended/cron), never stage or push `.trash/`; surface its
+  contents in the report instead, so nothing is lost silently.
 - The vault's own `CLAUDE.md`/`conventions.md` win on any conflict with this skill.
 - **OKF migration is mechanical and reviewable** — prefer `git mv` so renames show as renames; never lose
   a fact or a `created` date or a `provenance` value in the rewrite. Work folder-by-folder on large

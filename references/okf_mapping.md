@@ -42,7 +42,7 @@ fields, unknown `type` values, extra keys, broken links, and missing `index.md`.
 | per-folder `index.md` | `index.md` (§6) | Progressive-disclosure listing, no frontmatter — except the **root** `index.md`, which declares `okf_version: "0.1"`. |
 | root `log.md` (was `System/Changelog.md`) | `log.md` (§7) | Date-grouped change history, newest first; `**Update**`/`**Creation**`/`**Deprecation**` prefixes. |
 | `# Overview` / `# Schema` / `# Examples` / `# Citations` | conventional headings (§4.2) | Used where they apply. |
-| Exceptions kept verbatim | — | `CLAUDE.md`, `AGENTS.md`, `README.md`, `index.md`, `log.md`, `_meta/`, `_dump/`, `.obsidian/`. |
+| Exceptions kept verbatim | — | `CLAUDE.md`, `AGENTS.md`, `README.md`, `index.md`, `log.md`, `_meta/`, `.obsidian/`. |
 
 ## Why we keep Obsidian + the graph
 

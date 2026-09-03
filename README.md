@@ -81,8 +81,7 @@ produces generally are not.
 - Filenames are `snake_case` slugs in lowercase folders; the human name lives in `title`.
 - Structure: `home.md` (MOC) · root `index.md` (declares `okf_version`) · `log.md` (change history) ·
   `system/` (manifesto, conventions) · `people/ organizations/ tools/ projects/ meetings/ daily/` ·
-  `inbox/` (raw capture) · `_meta/taxonomy.md` · `_insights.md` (graph analytics) · `_dump/` (prune
-  quarantine) · `.obsidian/` (graph-view config).
+  `inbox/` (raw capture) · `_meta/taxonomy.md` · `_insights.md` (graph analytics) · `.obsidian/` (graph-view config).
 - Linking: bundle-relative markdown links `[Text](/folder/slug.md)` for every entity; stubs so links
   always resolve; link up + across.
 - Lifecycle: `inbox → wiki → schema`. Periodic `/dream` deep-clean (also performs the OKF migration).

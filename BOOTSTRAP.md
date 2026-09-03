@@ -143,4 +143,4 @@ unattended pass per vault:
 > `/schedule` → new routine → weekly → command: `/dream ~/Projects/<context>/<context>-os --mode unattended`
 
 Start with one vault, review the first real run's report, then expand. Unattended runs only quarantine
-to `_dump/` — they never delete — so they're safe to leave running.
+to `.trash/` — they never delete — so they're safe to leave running.
