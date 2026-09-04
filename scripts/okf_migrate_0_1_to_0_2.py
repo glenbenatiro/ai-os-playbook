@@ -471,7 +471,9 @@ def transform_frontmatter(entries, rel, root, opts, report):
             raw = entry.raw_value.strip()
             if not raw or raw[0] in '\'"[{' or TEMPLATE_TOKEN_RE.match(raw):
                 continue
-            if ': ' in raw or raw.endswith(':') or ' #' in raw:
+            # A leading indicator makes YAML read the value as an alias, anchor,
+            # tag or directive rather than as text.
+            if raw[0] in '*&!%@`' or ': ' in raw or raw.endswith(':') or ' #' in raw:
                 entry.lines[0] = "%s: '%s'" % (entry.key, raw.replace("'", "''"))
                 report.bump('quoted for strict YAML')
                 changed = True
