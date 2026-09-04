@@ -28,24 +28,25 @@ in each project folder's own `CLAUDE.md` — this file stays general.
 ## How this is organized — the AI OS knowledge layer
 
 My knowledge layer is a set of AI Operating Systems (AI OS) — Karpathy-style LLM-OS vaults and
-[OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) knowledge bundles:
-Obsidian-readable markdown + YAML frontmatter + bundle-relative links, graph-viewable, and maintained by
-the agent, not hand-edited. The canonical structure and the machine-bootstrap procedure live in
-`~/Projects/ai-os-playbook/`.
+[Open Knowledge Format (OKF)](https://github.com/GoogleCloudPlatform/open-knowledge-format) v0.2
+knowledge bundles: Obsidian-readable markdown + YAML frontmatter + bundle-relative links, graph-viewable,
+and maintained by the agent, not hand-edited. Each vault is self-contained — its own `AGENTS.md` is the
+operating contract, and everything needed to run it lives inside it.
 
 The layers:
 - User level (this file) — who I am, global conventions.
 - Personal OS — `~/Projects/personal-os/` — my cross-context AI OS (me, my stack, working patterns). The
   top of the knowledge graph.
-- Per context — each `~/Projects/<context>/` folder has its own `CLAUDE.md` (folder context) and its own
-  AI OS vault at `~/Projects/<context>/<context>-os/`.
+- Per context — each `~/Projects/<context>/` folder has its own `AGENTS.md` (folder context, with a
+  one-line `CLAUDE.md` shim beside it) and its own AI OS vault at `~/Projects/<context>/<context>-os/`.
 
 AI OS routing rule (generic — works for any context, no per-context edits):
 > When working under `~/Projects/<context>/`, look for a `<context>-os/` vault. If one exists, that is
 > that context's AI OS: read it for context before asking me something it might already know (start at
-> its `home.md`), and keep it updated per its own `CLAUDE.md` and `system/conventions.md`. The personal
-> layer is `~/Projects/personal-os/`. The OS holds context, not code — code stays in the project repos;
-> the OS holds reusable context and pointers to it.
+> its `home.md`), and keep it updated per its own `AGENTS.md` and `system/conventions.md`. When you learn
+> something durable while working in that context, tell me and offer to record it in the vault. The
+> personal layer is `~/Projects/personal-os/`. The OS holds context, not code — code stays in the project
+> repos; the OS holds reusable context and pointers to it.
 
-To set up the AI OS on a new machine, read `~/Projects/ai-os-playbook/BOOTSTRAP.md`. To deep-clean a
-vault, run the `/dream` skill on it.
+To deep-clean a vault, run its dream pass — `/dream` in Claude Code, or follow the vault's own
+`system/dream.md` with any other agent.
