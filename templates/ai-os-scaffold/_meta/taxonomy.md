@@ -3,7 +3,9 @@ type: system
 title: Taxonomy
 description: The controlled vocabulary of tags allowed in this vault. New tags get registered here first.
 tags: [system, taxonomy]
-timestamp: {{CREATED}}
+generated:
+  by: {{KERNEL_ACTOR}}
+  at: {{CREATED_AT}}
 created: {{CREATED}}
 provenance: extracted
 ---
@@ -12,7 +14,7 @@ provenance: extracted
 
 The **controlled vocabulary** of tags for this vault. Tags are lowercase `snake_case`. Before inventing a
 tag, check this list. To add one, append it here with a one-line definition in the same edit that
-introduces it. The `/dream` skill flags any tag used in the vault that isn't registered here.
+introduces it. The [dream pass](/system/dream.md) flags any tag used in the vault that isn't registered here.
 
 ## Structural (note role)
 - `home` — the root MOC ([home](/home.md)).

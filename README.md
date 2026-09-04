@@ -1,3 +1,15 @@
+---
+type: documentation
+title: AI OS Playbook
+description: A portable, LLM-agnostic structure for building AI Operating Systems - markdown vaults an LLM maintains as its kernel.
+tags: [documentation, ai_os]
+generated:
+  by: claude-code/kernel
+  at: 2026-09-04T00:00:00Z
+created: 2026-06-11
+provenance: extracted
+---
+
 # AI OS Playbook
 
 A portable, repeatable structure for an AI Operating System (AI OS) — a knowledge layer that an LLM
@@ -10,9 +22,9 @@ anyone who wants a durable, self-maintaining context store for their AI agents.
 ## What an AI OS is
 
 A Karpathy-style LLM-OS: a plain-markdown, Obsidian-readable vault — an
-[OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) knowledge bundle
-(markdown + YAML frontmatter + bundle-relative links, viewed as a graph) — that an LLM maintains as its
-kernel. You speak in natural language; the agent does the reading, writing, linking, and housekeeping. The
+[Open Knowledge Format (OKF)](https://github.com/GoogleCloudPlatform/open-knowledge-format) v0.2
+knowledge bundle (markdown + YAML frontmatter + bundle-relative links, viewed as a graph) — that an LLM
+maintains as its kernel. You speak in natural language; the agent does the reading, writing, linking, and housekeeping. The
 vault is durable memory (the "disk"); the context window is RAM; Obsidian is the display. It's the durable
 context store so you never have to repeat yourself to an LLM twice.
 
@@ -25,13 +37,17 @@ vault's `system/os_manifesto.md`.
 
 The vaults aren't tied to any one model or tool. The knowledge is plain markdown + YAML frontmatter +
 bundle-relative links, conformant to
-[OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) — any agent (Claude
-Code, Codex, Cursor, Gemini CLI, Windsurf, a local model), any OKF-aware tool, or even `grep` can read and
-write it. The operating contract ships as two entrypoints describing the same rules: `CLAUDE.md`
-(Claude Code, canonical) and `AGENTS.md` (the cross-tool standard the others read). Point any tool's own
-rules file (`.cursor/rules`, `GEMINI.md`, …) at `CLAUDE.md` and keep it as the single source — never
-fork the rules. The `/dream` maintenance routine is a Claude skill, but its spec (`skills/dream/SKILL.md`)
-is plain markdown any agent can follow step-by-step.
+[OKF v0.2](https://github.com/GoogleCloudPlatform/open-knowledge-format) — any agent (Claude Code, Codex,
+Cursor, Gemini CLI, Windsurf, a local model), any OKF-aware tool, or even `grep` can read and write it.
+
+The operating contract lives in **`AGENTS.md`**, the cross-tool standard every agent reads. `CLAUDE.md`
+sits beside it holding one line — `@AGENTS.md` — which Claude Code resolves as an import, so there is one
+copy of the rules and no vendor-specific fork. Point any other tool's rules file (`.cursor/rules`,
+`GEMINI.md`, …) at `AGENTS.md` too.
+
+Each vault is **self-contained**: the contract, the conventions, the taxonomy and the maintenance
+procedure all ship inside it, so a vault can be handed to another person or machine whole and depends on
+nothing here.
 
 ## The layered model
 
@@ -52,16 +68,21 @@ or area):
 ai-os-playbook/
   README.md                  # this file
   BOOTSTRAP.md               # how an agent scaffolds the AI OS on a fresh machine
+  AGENTS.md                  # how to change this playbook (CLAUDE.md is a one-line shim)
   CHANGELOG.md               # changes to the playbook itself
+  index.md                   # OKF root reserved file
   LICENSE                    # MIT
   references/
-    okf_mapping.md           # OKF v0.1 <-> AI OS field/structure mapping (the standard this conforms to)
+    okf_mapping.md           # OKF v0.2 <-> AI OS field/structure mapping (the standard this conforms to)
+  scripts/
+    okf_check.py             # conformance checker (stdlib only)
+    okf_migrate_0_1_to_0_2.py # carries a v0.1 bundle to v0.2
   skills/
-    dream/SKILL.md           # the /dream vault-consolidation + OKF-migration skill (install to ~/.claude/skills/)
+    dream/SKILL.md           # /dream launcher for Claude Code (install to ~/.claude/skills/)
   templates/
     user-CLAUDE.md           # -> ~/.claude/CLAUDE.md
-    client-CLAUDE.md         # -> ~/Projects/<context>/CLAUDE.md
-    ai-os-scaffold/           # the canonical vault skeleton (OKF v0.1 bundle; copied per context)
+    client-AGENTS.md         # -> ~/Projects/<context>/AGENTS.md (+ a one-line CLAUDE.md shim)
+    ai-os-scaffold/          # the canonical vault skeleton (OKF v0.2 bundle; copied per context)
 ```
 
 ## Keep AI OS repos private
@@ -72,33 +93,44 @@ produces generally are not.
 
 ## The canonical conventions (what every vault inherits)
 
-- OKF v0.1 conformance: every vault is an OKF knowledge bundle (a non-empty `type` on every note;
-  `index.md`/`log.md` reserved files). See `references/okf_mapping.md`.
-- Kernel contract (`<vault>/CLAUDE.md`): proactive linking, stub-on-mention, maintain-the-index,
-  log-structural-changes, faithful edits, never-silently-delete, ISO dates, flag-uncertainty, privacy.
-- Frontmatter: `type, title, description, tags, timestamp` + extensions
-  `created, provenance, status, resource` (`provenance` ∈ `extracted | inferred | to-confirm`).
+- OKF v0.2 conformance: every vault is an OKF knowledge bundle (a non-empty `type` on every note;
+  `index.md`/`log.md` reserved and frontmatter-free; the root `index.md` declaring `okf_version`).
+  See `references/okf_mapping.md`, and run `scripts/okf_check.py <vault>` to verify it.
+- Kernel contract (`<vault>/AGENTS.md`): proactive linking, stub-on-mention, maintain-the-index,
+  log-structural-changes, faithful edits, never-silently-delete, ISO dates, flag-uncertainty, privacy,
+  and capture-back — when an agent working in a project repo learns something durable, it says so and
+  offers to record it in the vault.
+- Frontmatter: `type, title, description, tags, generated {by, at}` + extensions
+  `created, provenance, stage, resource` (`provenance` ∈ `extracted | inferred | to-confirm`). OKF's
+  `status` is reserved for `draft | stable | deprecated`; the vault's own lifecycle lives in `stage`.
 - Filenames are `snake_case` slugs in lowercase folders; the human name lives in `title`.
 - Structure: `home.md` (MOC) · root `index.md` (declares `okf_version`) · `log.md` (change history) ·
-  `system/` (manifesto, conventions) · `people/ organizations/ tools/ projects/ meetings/ daily/` ·
-  `inbox/` (raw capture) · `_meta/taxonomy.md` · `_insights.md` (graph analytics) · `.obsidian/` (graph-view config).
+  `system/` (manifesto, conventions, the dream pass) · `people/ organizations/ tools/ projects/ meetings/
+  daily/ sources/` · `inbox/` (raw capture) · `_meta/taxonomy.md` · `_insights.md` (graph analytics) ·
+  `.obsidian/` (graph-view config).
 - Linking: bundle-relative markdown links `[Text](/folder/slug.md)` for every entity; stubs so links
   always resolve; link up + across.
-- Lifecycle: `inbox → wiki → schema`. Periodic `/dream` deep-clean (also performs the OKF migration).
+- Lifecycle: `inbox → wiki → schema`. Periodic deep-clean via the vault's own `system/dream.md` (also
+  performs the OKF migration); in Claude Code the `/dream` skill runs it.
 
 ## How to evolve the structure (the rule that keeps it scalable)
 
 Structure changes here first, then propagates. When a convention should change, edit the `templates/`
-in this repo, bump `CHANGELOG.md`, then apply the change to the live vaults (a `/dream` run can carry
-most of it). Live vaults are instances of this template — don't let them drift independently. Each vault
-may keep small local conventions, documented in its own `System/`.
+in this repo, bump `CHANGELOG.md`, run `scripts/okf_check.py`, then apply the change to the live vaults
+(a dream pass can carry most of it). Live vaults are instances of this template — don't let them drift
+independently. Each vault may keep small local conventions, documented in its own `system/`.
+
+Because vaults are self-contained, the change has to land in each one; nothing is inherited at runtime.
+See `AGENTS.md` for the full working rules for this repository.
 
 ## Quick start
 
 - New machine: read `BOOTSTRAP.md`.
 - New context on an existing machine: copy `templates/ai-os-scaffold/` → `<context>/<context>-os/`, fill
-  placeholders, `git init`, write `<context>/CLAUDE.md` from `templates/client-CLAUDE.md`.
-- Tidy a vault: run `/dream` on it.
+  placeholders, `git init`, write `<context>/AGENTS.md` from `templates/client-AGENTS.md` (plus a
+  one-line `CLAUDE.md` shim).
+- Check a vault: `python3 scripts/okf_check.py <vault>`.
+- Tidy a vault: run its dream pass (`/dream` in Claude Code).
 
 ## Credits
 
