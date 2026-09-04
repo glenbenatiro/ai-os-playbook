@@ -1,3 +1,15 @@
+---
+type: documentation
+title: BOOTSTRAP - set up the AI OS on a fresh machine
+description: The procedure an agent follows to stand up the knowledge layer from scratch on a new machine.
+tags: [documentation, bootstrap]
+generated:
+  by: claude-code/kernel
+  at: 2026-09-04T00:00:00Z
+created: 2026-06-11
+provenance: extracted
+---
+
 # BOOTSTRAP — set up the AI OS on a fresh machine
 
 This is the procedure an agent (e.g. Claude Code) follows to stand up your knowledge layer from scratch
@@ -8,9 +20,13 @@ the playbook."
 > decisions, working detail). Create remotes with `gh repo create … --private`. This playbook is
 > shareable; the vaults it produces usually are not.
 
-> 📦 Each vault is an [OKF v0.1](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf)
-> knowledge bundle — plain markdown + YAML frontmatter, `snake_case` slug filenames in lowercase folders,
-> bundle-relative markdown links, and `index.md`/`log.md` reserved files. See `references/okf_mapping.md`.
+> 📦 Each vault is an [Open Knowledge Format (OKF)](https://github.com/GoogleCloudPlatform/open-knowledge-format)
+> v0.2 knowledge bundle — plain markdown + YAML frontmatter, `snake_case` slug filenames in lowercase
+> folders, bundle-relative markdown links, and `index.md`/`log.md` reserved files. See
+> `references/okf_mapping.md`.
+
+> 🧩 Each vault is self-contained. Once scaffolded it depends on nothing in this repository, so it can be
+> handed to another person or machine whole.
 
 ---
 
@@ -53,10 +69,10 @@ For each AI OS to create (the personal OS, and one per context on this machine):
    `people/jane_doe.md`).
 3. Fill placeholders in every file (see the table in §4 — the fill sweeps all `*.md`, including
    `AGENTS.md`). Replace `{{...}}` tokens; delete placeholder lines that don't apply (e.g. the privacy
-   rule for a single-party context). The scaffold already includes both entrypoints: `CLAUDE.md` (the
-   canonical kernel contract) and `AGENTS.md` (the LLM-agnostic pointer to it).
-4. Write the folder `CLAUDE.md` (context folders only) from `templates/client-CLAUDE.md` at
-   `~/Projects/<context>/CLAUDE.md`.
+   rule for a single-party context). The scaffold ships `AGENTS.md` as the canonical kernel contract and
+   a `CLAUDE.md` holding the single line `@AGENTS.md`, so Claude Code imports the same rules.
+4. Write the folder rules (context folders only) from `templates/client-AGENTS.md` to
+   `~/Projects/<context>/AGENTS.md`, and put a one-line `CLAUDE.md` (`@AGENTS.md`) beside it.
 5. Seed real content: create `organizations/<org_slug>.md`, fill the owner note, and stub the known
    project subfolders under `projects/`. Update `home.md` and the relevant `index.md` files so nothing is
    orphaned.
@@ -71,23 +87,25 @@ Then, once:
 
 7. Write the user config `~/.claude/CLAUDE.md` from `templates/user-CLAUDE.md` (fill the engagements
    table for the contexts on this machine; keep the generic routing rule verbatim).
-8. Install the Dream skill so `/dream` works everywhere:
+8. Install the Dream launcher so `/dream` works everywhere. It is a launcher only — the procedure itself
+   ships inside each vault at `system/dream.md`:
    ```bash
    mkdir -p ~/.claude/skills/dream
    cp ~/Projects/personal/ai-os-playbook/skills/dream/SKILL.md ~/.claude/skills/dream/SKILL.md
    ```
-9. Run a first `/dream` per vault to validate links and generate `_insights.md`.
+9. Run a first dream pass per vault to validate links and generate `_insights.md`.
 
 ---
 
 ## 3. Verify
 
-- Each `<...>-os/` has `CLAUDE.md`, `system/`, `home.md`, the root `index.md` (with `okf_version: "0.1"`),
-  `log.md`, `_meta/taxonomy.md`, `.obsidian/`, and opens in Obsidian with a connected graph (no orphan
-  `home`). Every non-reserved `.md` has a non-empty `type` (OKF conformance).
+- Each `<...>-os/` has `AGENTS.md` (plus the one-line `CLAUDE.md` shim), `system/`, `home.md`, the root
+  `index.md` (with `okf_version: "0.2"`), `log.md`, `_meta/taxonomy.md`, `.obsidian/`, and opens in
+  Obsidian with a connected graph (no orphan `home`).
+- `python3 ~/Projects/personal/ai-os-playbook/scripts/okf_check.py <vault>` reports no failures.
 - From a context folder, ask the agent a context question — it should consult that context's `-os/`
   vault without being told the path (the generic routing rule in `~/.claude/CLAUDE.md`).
-- `/dream <vault>` runs, quarantines (never deletes), and writes `_insights.md` + a report.
+- The dream pass runs, quarantines (never deletes), and writes `_insights.md` + a report.
 
 ---
 
@@ -114,6 +132,8 @@ Tokens used across the templates. Fill per AI OS:
 | `{{ORG_EXAMPLES}}` / `{{ORG_LINKS}}` | Org notes for `CLAUDE.md` / `home.md` | `[Acme Corp](/organizations/acme_corp.md)` |
 | `{{TOOL_LINKS}}` | Initial tool links for `home.md` | `[Claude](/tools/claude.md) · [n8n](/tools/n8n.md)` |
 | `{{CREATED}}` | Today's ISO date | `2026-01-01` |
+| `{{CREATED_AT}}` | Today as an ISO 8601 UTC datetime (`date -u +%Y-%m-%dT%H:%M:%SZ`) | `2026-01-01T00:00:00Z` |
+| `{{KERNEL_ACTOR}}` | The agent that maintains the vault, as `<tool>/<version>` | `claude-code/kernel` |
 | `{{PRIVACY_RULE}}` | Privacy boundary text (CLAUDE.md rule 11) | see §5 |
 | `{{PRINCIPLE_PRIVACY}}` | Privacy principle (Manifesto) | see §5 |
 | `{{TAXONOMY_PRIVACY}}` | Privacy tags block (taxonomy) | see §5 |

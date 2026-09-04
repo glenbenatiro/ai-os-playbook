@@ -1,6 +1,46 @@
+---
+type: changelog
+title: Changelog - AI OS Playbook
+description: Changes to the playbook itself - the canonical structure and the bootstrap procedure.
+tags: [changelog]
+generated:
+  by: claude-code/kernel
+  at: 2026-09-04T00:00:00Z
+created: 2026-06-11
+provenance: extracted
+---
+
 # Changelog — AI OS Playbook
 
 Changes to the playbook itself (the canonical structure + bootstrap). Conventional-commit style.
+
+## 2026-09-04 — OKF v0.2, AGENTS.md canonical, self-contained vaults
+
+Four changes, all of which propagate to every live vault.
+
+- **OKF v0.2.** Vaults declared conformance to v0.1 against a spec URL that has since moved; the standard
+  now lives at [GoogleCloudPlatform/open-knowledge-format](https://github.com/GoogleCloudPlatform/open-knowledge-format)
+  and is at v0.2. Frontmatter `timestamp` becomes `generated: {by, at}` (an actor plus an ISO 8601
+  datetime with a UTC offset). The vault's lifecycle vocabulary moves out of `status` — which OKF
+  reserves for `draft`/`stable`/`deprecated` — into a new `stage` field, with `status: deprecated` set
+  on retired notes. `# Citations` is retired in favour of the `sources` frontmatter list. Reserved files
+  lose their frontmatter, and the root `index.md` declares `okf_version: "0.2"` and nothing else.
+- **`AGENTS.md` is the canonical kernel contract**, with `CLAUDE.md` reduced to the single line
+  `@AGENTS.md`. `AGENTS.md` is the cross-tool standard, so the vendor-neutral file no longer depends on
+  the vendor-specific one. `templates/client-CLAUDE.md` becomes `templates/client-AGENTS.md` for the same
+  reason.
+- **Vaults are self-contained.** The scaffold no longer refers to this repository or to any machine path,
+  and the contract states the rule outright: everything needed to operate a vault lives inside it. The
+  consolidation pass moves from `skills/dream/SKILL.md` into the vault at `system/dream.md`, tool-agnostic
+  and readable by any agent; the Claude skill becomes a launcher that reads the vault's own copy.
+- **Conformance is testable.** New `scripts/okf_check.py` (stdlib only) verifies a bundle, and
+  `scripts/okf_migrate_0_1_to_0_2.py` performs the migration idempotently. This repository is now an OKF
+  bundle itself, with its own `AGENTS.md`, `index.md` and document frontmatter.
+
+Also adds a capture-back rule to the contract: an agent working in a project repo that a vault covers has
+to surface a durable learning and offer to record it, rather than leaving it in the conversation. Fixes
+two pieces of drift: the root `index.md` never listed `sources/`, and several documents pointed at
+`CLAUDE.md` for rules that now live in `AGENTS.md`.
 
 ## 2026-06-22 — Raw-context routing + `sources/` folder
 
