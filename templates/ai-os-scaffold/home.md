@@ -3,7 +3,9 @@ type: moc
 title: Home
 description: The entry point and map-of-content for this OS.
 tags: [home, moc]
-timestamp: {{CREATED}}
+generated:
+  by: {{KERNEL_ACTOR}}
+  at: {{CREATED_AT}}
 created: {{CREATED}}
 provenance: extracted
 ---

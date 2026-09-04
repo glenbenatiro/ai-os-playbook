@@ -3,7 +3,9 @@ type: person
 title: {{OWNER}}
 description: The owner and sole user of this OS.
 tags: [me]
-timestamp: {{CREATED}}
+generated:
+  by: {{KERNEL_ACTOR}}
+  at: {{CREATED_AT}}
 created: {{CREATED}}
 provenance: extracted
 ---

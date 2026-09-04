@@ -5,4 +5,4 @@ here. This is the OKF `log.md` reserved file (no frontmatter; date-grouped, newe
 
 ## {{CREATED}}
 
-* **Creation** — Vault created from the AI OS Playbook canonical scaffold (OKF v0.1 knowledge bundle).
+* **Creation** — Vault created as an OKF v0.2 knowledge bundle.

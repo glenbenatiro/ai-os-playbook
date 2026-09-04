@@ -3,7 +3,9 @@ type: moc
 title: Inbox
 description: Raw capture zone. Drop unsorted input here; the kernel digests it into proper notes, then clears it.
 tags: [moc]
-timestamp: {{CREATED}}
+generated:
+  by: {{KERNEL_ACTOR}}
+  at: {{CREATED_AT}}
 created: {{CREATED}}
 provenance: extracted
 ---
