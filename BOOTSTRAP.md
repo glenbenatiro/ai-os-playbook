@@ -5,7 +5,7 @@ description: The procedure an agent follows to stand up the knowledge layer from
 tags: [documentation, bootstrap]
 generated:
   by: claude-code/kernel
-  at: 2026-10-29T08:41:26Z
+  at: 2026-10-29T09:44:52Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -28,7 +28,7 @@ the playbook."
 > 🧩 Each vault is self-contained. Once scaffolded it depends on nothing in this repository, so it can be
 > handed to another person or machine whole.
 
-> 🏠 Every vault lives at `~/Projects/personal/os-<context>/`, and the personal OS is `os-<your-name>`, as in `os-jane`. A vault never goes inside a context folder, and its repo is the private `os-<context>` in your personal account, never in a client's organization. A context folder or a client's organization may be handed over to the client one day, and the vault must not go with it.
+> 🏠 Every vault lives at `~/Projects/personal/os-<context>/`, and the personal OS is `os-<your-name>`, as in `os-jane`. A vault never goes inside a context folder, and its repo is the private `os-<context>` in your personal account, never in a client's organization. A context folder or a client's organization may be handed over to the client one day, and the vault must not go with it. Nothing in a context folder or its repos names the vault; only the user-level `CLAUDE.md` points at it.
 
 ---
 
@@ -71,7 +71,7 @@ For each AI OS to create (the personal OS, and one per context on this machine):
    `AGENTS.md`). Replace `{{...}}` tokens; delete placeholder lines that don't apply (e.g. the privacy
    rule for a single-party context). The scaffold ships `AGENTS.md` as the canonical kernel contract and
    a `CLAUDE.md` holding the single line `@AGENTS.md`, so Claude Code imports the same rules.
-4. Write the folder rules (context folders only) from `templates/client-AGENTS.md` to `~/Projects/<context>/AGENTS.md`, and put a one-line `CLAUDE.md` (`@AGENTS.md`) beside it. The folder rules point at the vault in `~/Projects/personal/` and hold nothing private about the client, because the folder may be handed over.
+4. Write the folder rules (context folders only) from `templates/client-AGENTS.md` to `~/Projects/<context>/AGENTS.md`, and put a one-line `CLAUDE.md` (`@AGENTS.md`) beside it. The folder rules hold nothing private and never mention the vault, because the folder may be handed over; only the user-level `CLAUDE.md` points at vaults.
 5. Seed real content: create `organizations/<org_slug>.md`, fill the owner note, and stub the known
    project subfolders under `projects/`. Update `home.md` and the relevant `index.md` files so nothing is
    orphaned.
@@ -118,7 +118,6 @@ Tokens used across the templates. Fill per AI OS:
 | `{{LOCATION}}` | Base location | `Anytown` |
 | `{{EMAIL}}` | Contact email | `you@example.com` |
 | `{{OS_NAME}}` | Display name of the OS | `Acme Corp OS` |
-| `{{OS_DIR}}` | Vault folder and repo name | `os-acme-corp` |
 | `{{PERSONAL_OS}}` | Personal OS folder and repo name, used in `user-CLAUDE.md` | `os-jane` |
 | `{{SCOPE}}` / `{{SCOPE_SHORT}}` | What this OS covers | `your Acme Corp work` / `Acme Corp` |
 | `{{CLIENT_NAME}}` | Context/org name | `Acme Corp` |
