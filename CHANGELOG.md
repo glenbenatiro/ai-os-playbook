@@ -5,7 +5,7 @@ description: Changes to the playbook itself - the canonical structure and the bo
 tags: [changelog]
 generated:
   by: claude-code/kernel
-  at: 2026-10-29T07:36:38Z
+  at: 2026-10-29T08:41:26Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -16,13 +16,13 @@ Changes to the playbook itself (the canonical structure + bootstrap). Convention
 
 ## 2026-10-29 - Vaults live outside context folders
 
-Every vault now lives at `~/Projects/personal/os-<context>/`, and the personal OS is `os-personal`. A context folder holds only that context's project repos and its `AGENTS.md`, which points at the vault. Vault repos are named `os-<context>`, sit in the owner's personal account, and are always private.
+Every vault now lives at `~/Projects/personal/os-<context>/`, and the personal OS is `os-<your-name>`, as in `os-jane`. A context folder holds only that context's project repos and its `AGENTS.md`, which points at the vault. Vault repos are named `os-<context>`, sit in the owner's personal account, and are always private.
 
 A context folder, or a client's GitHub organization, may be handed over to the client one day. A vault inside it would go with it, and so would the owner's private notes about that client. Keeping every vault under `personal/` and in the personal account keeps it with the owner.
 
 - **`README.md`**: the layered model, the private-repos section and the quick start use the new locations. The context layer is `AGENTS.md`, matching the 2026-09-04 change.
 - **`BOOTSTRAP.md`**: a new note says where vaults live and why. The machine profiles, the scaffold and git steps, the checks and the scheduled dream pass use `~/Projects/personal/os-<context>/`, and the `{{OS_DIR}}` example is `os-acme-corp`.
-- **`templates/user-CLAUDE.md`**: the layers and the routing rule point at `~/Projects/personal/os-<context>/`.
+- **`templates/user-CLAUDE.md`**: the layers and the routing rule point at `~/Projects/personal/os-<context>/`, and the personal OS is `~/Projects/personal/{{PERSONAL_OS}}/`, a new placeholder.
 - **`templates/client-AGENTS.md`**: the OS lives outside the folder, and nothing private about the client goes into the folder or its repos.
 - **`skills/dream/SKILL.md`**: looks for `os-*/` vaults instead of `*-os/`, and knows where a context's vault lives.
 

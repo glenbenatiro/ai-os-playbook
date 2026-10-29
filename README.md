@@ -5,7 +5,7 @@ description: A portable, LLM-agnostic structure for building AI Operating System
 tags: [documentation, ai_os]
 generated:
   by: claude-code/kernel
-  at: 2026-10-29T07:36:38Z
+  at: 2026-10-29T08:41:26Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -57,7 +57,7 @@ or area):
 | Layer | Location | Owner | Purpose |
 |---|---|---|---|
 | 0 — User config | `~/.claude/CLAUDE.md` | hybrid | Who you are + global conventions + a generic AI OS routing rule + pointer here |
-| 1 — Personal OS | `~/Projects/personal/os-personal/` | agent (kernel) | Cross-context AI OS: you, your stack, working patterns |
+| 1 — Personal OS | `~/Projects/personal/os-<your-name>/` | agent (kernel) | Cross-context AI OS: you, your stack, working patterns |
 | 2 — Context AGENTS.md | `~/Projects/<context>/AGENTS.md` | hybrid | People + working-arrangement context for that area, and a pointer to its vault |
 | 3 — Context AI OS | `~/Projects/personal/os-<context>/` | agent (kernel) | The knowledge graph for that context |
 | 4 — Project/code | `~/Projects/<context>/<project>/CLAUDE.md` | hybrid | Per-repo technical conventions |

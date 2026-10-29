@@ -5,7 +5,7 @@ description: The procedure an agent follows to stand up the knowledge layer from
 tags: [documentation, bootstrap]
 generated:
   by: claude-code/kernel
-  at: 2026-10-29T07:36:38Z
+  at: 2026-10-29T08:41:26Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -28,7 +28,7 @@ the playbook."
 > 🧩 Each vault is self-contained. Once scaffolded it depends on nothing in this repository, so it can be
 > handed to another person or machine whole.
 
-> 🏠 Every vault lives at `~/Projects/personal/os-<context>/`, and the personal OS is `os-personal`. A vault never goes inside a context folder, and its repo is the private `os-<context>` in your personal account, never in a client's organization. A context folder or a client's organization may be handed over to the client one day, and the vault must not go with it.
+> 🏠 Every vault lives at `~/Projects/personal/os-<context>/`, and the personal OS is `os-<your-name>`, as in `os-jane`. A vault never goes inside a context folder, and its repo is the private `os-<context>` in your personal account, never in a client's organization. A context folder or a client's organization may be handed over to the client one day, and the vault must not go with it.
 
 ---
 
@@ -48,8 +48,8 @@ the playbook."
 
 | Profile | When | Folder shape |
 |---|---|---|
-| Multi-context personal | one machine serving several contexts/clients | `~/Projects/<context>/` per context for its project repos, each with a folder `AGENTS.md`; one vault per context at `~/Projects/personal/os-<context>/`, plus `os-personal/` |
-| Dedicated single-context box | a machine provisioned for one context | project repos sit directly under `~/Projects/`; that context's vault at `~/Projects/personal/os-<context>/`, plus `os-personal/` if it belongs on this machine |
+| Multi-context personal | one machine serving several contexts/clients | `~/Projects/<context>/` per context for its project repos, each with a folder `AGENTS.md`; one vault per context at `~/Projects/personal/os-<context>/`, plus `os-<your-name>/` |
+| Dedicated single-context box | a machine provisioned for one context | project repos sit directly under `~/Projects/`; that context's vault at `~/Projects/personal/os-<context>/`, plus `os-<your-name>/` if it belongs on this machine |
 
 Ask the human: which profile, which context(s) live here, and each context's working window + one-line
 description. Capture answers — they fill the placeholders below.
@@ -64,7 +64,7 @@ For each AI OS to create (the personal OS, and one per context on this machine):
    ```bash
    cp -r ~/Projects/personal/ai-os-playbook/templates/ai-os-scaffold ~/Projects/personal/os-<name>
    ```
-   (`<name>` is the context, as in `os-acme-corp`; the personal OS is `os-personal`. Never put a vault inside a context folder.)
+   (`<name>` is the context, as in `os-acme-corp`; the personal OS is `os-<your-name>`, as in `os-jane`. Never put a vault inside a context folder.)
 2. Rename the owner seed note: `people/{{OWNER_SLUG}}.md` → `people/<owner_slug>.md` (snake_case, e.g.
    `people/jane_doe.md`).
 3. Fill placeholders in every file (see the table in §4 — the fill sweeps all `*.md`, including
@@ -119,6 +119,7 @@ Tokens used across the templates. Fill per AI OS:
 | `{{EMAIL}}` | Contact email | `you@example.com` |
 | `{{OS_NAME}}` | Display name of the OS | `Acme Corp OS` |
 | `{{OS_DIR}}` | Vault folder and repo name | `os-acme-corp` |
+| `{{PERSONAL_OS}}` | Personal OS folder and repo name, used in `user-CLAUDE.md` | `os-jane` |
 | `{{SCOPE}}` / `{{SCOPE_SHORT}}` | What this OS covers | `your Acme Corp work` / `Acme Corp` |
 | `{{CLIENT_NAME}}` | Context/org name | `Acme Corp` |
 | `{{CLIENT_DESCRIPTION}}` | One-liner about the context | _(from intake)_ |
