@@ -11,7 +11,7 @@ points every agent at the AI operating system where that context lives.
 ## What {{CLIENT_NAME}} is
 
 - {{CLIENT_DESCRIPTION}}
-- The canonical, always-current description lives in the OS (`{{OS_DIR}}/organizations/<client_slug>.md`).
+- The canonical, always-current description lives in the OS (`organizations/<client_slug>.md` in the vault).
 
 ## How {{OWNER}} works for them
 
@@ -22,9 +22,11 @@ points every agent at the AI operating system where that context lives.
 
 ## ⭐ The AI Operating System (read this)
 
-There is an AI operating system for {{CLIENT_NAME}} in this folder:
+There is an AI operating system for {{CLIENT_NAME}}. It lives outside this folder:
 
-> `{{OS_DIR}}/`
+> `~/Projects/personal/{{OS_DIR}}/`
+
+This folder may be handed over to {{CLIENT_NAME}} one day, so it never holds the OS. Nothing private about {{CLIENT_NAME}} goes into this folder or its repos; it goes into the OS.
 
 It is a Karpathy-style LLM-OS and an
 [Open Knowledge Format (OKF)](https://github.com/GoogleCloudPlatform/open-knowledge-format) v0.2
@@ -34,8 +36,7 @@ that an LLM maintains as its kernel. It is the durable context store for everyth
 
 Rules for any LLM/agent working anywhere in this folder:
 
-1. Consult it first. Before asking {{OWNER_SHORT}} for context that might already be known (who someone
-   is, what a project does, how something works), check the OS — start at `{{OS_DIR}}/home.md`.
+1. Consult it first. Before asking {{OWNER_SHORT}} for context that might already be known (who someone is, what a project does, how something works), check the OS, starting at its `home.md`.
 2. Feed it back. When you learn something durable while working in this folder — a person, a process, a
    tool, a decision, a fact about the org — **say so and offer to record it in the OS**, rather than
    leaving it in the conversation. Describe the new information in natural language and let the OS kernel
@@ -46,6 +47,4 @@ Rules for any LLM/agent working anywhere in this folder:
 4. One-off, project-only details (a specific bug, a local config) stay in the project — don't clutter
    the OS with them. The bar for the OS is "useful beyond this one task/project."
 
-The OS has its own operating contract at `{{OS_DIR}}/AGENTS.md` and rules in its `system/conventions.md`
-— follow those when writing into the vault. Run its dream pass (`{{OS_DIR}}/system/dream.md`) periodically
-to keep the graph tidy.
+The OS has its own operating contract in its `AGENTS.md` and rules in its `system/conventions.md`; follow those when writing into the vault. Run its dream pass (its `system/dream.md`) periodically to keep the graph tidy.

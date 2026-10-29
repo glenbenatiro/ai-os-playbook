@@ -35,18 +35,12 @@ operating contract, and everything needed to run it lives inside it.
 
 The layers:
 - User level (this file) — who I am, global conventions.
-- Personal OS — `~/Projects/personal-os/` — my cross-context AI OS (me, my stack, working patterns). The
-  top of the knowledge graph.
-- Per context — each `~/Projects/<context>/` folder has its own `AGENTS.md` (folder context, with a
-  one-line `CLAUDE.md` shim beside it) and its own AI OS vault at `~/Projects/<context>/<context>-os/`.
+- Personal OS: `~/Projects/personal/os-personal/`, my cross-context AI OS (me, my stack, working patterns). The top of the knowledge graph.
+- Per context: each `~/Projects/<context>/` folder holds that context's project repos and its own `AGENTS.md` (folder context, with a one-line `CLAUDE.md` shim beside it). Its AI OS vault lives outside the folder, at `~/Projects/personal/os-<context>/`.
+- Every vault lives under `~/Projects/personal/`, and its repo is the private `os-<context>` in my personal account. A context folder or a client's GitHub organization never holds a vault, because it may be handed over to the client one day.
 
 AI OS routing rule (generic — works for any context, no per-context edits):
-> When working under `~/Projects/<context>/`, look for a `<context>-os/` vault. If one exists, that is
-> that context's AI OS: read it for context before asking me something it might already know (start at
-> its `home.md`), and keep it updated per its own `AGENTS.md` and `system/conventions.md`. When you learn
-> something durable while working in that context, tell me and offer to record it in the vault. The
-> personal layer is `~/Projects/personal-os/`. The OS holds context, not code — code stays in the project
-> repos; the OS holds reusable context and pointers to it.
+> When working under `~/Projects/<context>/`, look for that context's vault at `~/Projects/personal/os-<context>/` (the engagements table names it when the folder and vault names differ). If one exists, that is that context's AI OS: read it for context before asking me something it might already know (start at its `home.md`), and keep it updated per its own `AGENTS.md` and `system/conventions.md`. When you learn something durable while working in that context, tell me and offer to record it in the vault. The personal layer is `~/Projects/personal/os-personal/`. The OS holds context, not code: code stays in the project repos, and the OS holds reusable context and pointers to it.
 
 To deep-clean a vault, run its dream pass — `/dream` in Claude Code, or follow the vault's own
 `system/dream.md` with any other agent.

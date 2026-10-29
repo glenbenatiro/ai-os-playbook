@@ -5,7 +5,7 @@ description: A portable, LLM-agnostic structure for building AI Operating System
 tags: [documentation, ai_os]
 generated:
   by: claude-code/kernel
-  at: 2026-09-04T00:00:00Z
+  at: 2026-10-29T07:36:38Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -57,10 +57,12 @@ or area):
 | Layer | Location | Owner | Purpose |
 |---|---|---|---|
 | 0 — User config | `~/.claude/CLAUDE.md` | hybrid | Who you are + global conventions + a generic AI OS routing rule + pointer here |
-| 1 — Personal OS | `~/Projects/personal-os/` | agent (kernel) | Cross-context AI OS: you, your stack, working patterns |
-| 2 — Context CLAUDE.md | `~/Projects/<context>/CLAUDE.md` | hybrid | People + working-arrangement context for that area |
-| 3 — Context AI OS | `~/Projects/<context>/<context>-os/` | agent (kernel) | The knowledge graph for that context |
+| 1 — Personal OS | `~/Projects/personal/os-personal/` | agent (kernel) | Cross-context AI OS: you, your stack, working patterns |
+| 2 — Context AGENTS.md | `~/Projects/<context>/AGENTS.md` | hybrid | People + working-arrangement context for that area, and a pointer to its vault |
+| 3 — Context AI OS | `~/Projects/personal/os-<context>/` | agent (kernel) | The knowledge graph for that context |
 | 4 — Project/code | `~/Projects/<context>/<project>/CLAUDE.md` | hybrid | Per-repo technical conventions |
+
+Every vault, the personal OS included, lives under `~/Projects/personal/` and is named `os-<context>`. A context folder holds that context's project repos and its `AGENTS.md`, never a vault. A context folder, or a client's GitHub organization, may be handed over to the client one day, and the vault must not go with it.
 
 ## What's in this repo
 
@@ -87,9 +89,7 @@ ai-os-playbook/
 
 ## Keep AI OS repos private
 
-Vaults hold private operating context (people, decisions, working detail). If you version them, create
-the remotes private (`gh repo create … --private`). This playbook itself is fine to share; the vaults it
-produces generally are not.
+Vaults hold private operating context (people, decisions, working detail). If you version them, create the remotes private (`gh repo create … --private`), name each repo `os-<context>`, and keep it in your personal account, never in a client's organization. This playbook itself is fine to share; the vaults it produces generally are not.
 
 ## The canonical conventions (what every vault inherits)
 
@@ -126,9 +126,7 @@ See `AGENTS.md` for the full working rules for this repository.
 ## Quick start
 
 - New machine: read `BOOTSTRAP.md`.
-- New context on an existing machine: copy `templates/ai-os-scaffold/` → `<context>/<context>-os/`, fill
-  placeholders, `git init`, write `<context>/AGENTS.md` from `templates/client-AGENTS.md` (plus a
-  one-line `CLAUDE.md` shim).
+- New context on an existing machine: copy `templates/ai-os-scaffold/` → `~/Projects/personal/os-<context>/`, fill placeholders, `git init`, write `~/Projects/<context>/AGENTS.md` from `templates/client-AGENTS.md` (plus a one-line `CLAUDE.md` shim).
 - Check a vault: `python3 scripts/okf_check.py <vault>`.
 - Tidy a vault: run its dream pass (`/dream` in Claude Code).
 
