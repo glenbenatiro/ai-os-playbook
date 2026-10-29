@@ -5,7 +5,7 @@ description: How to change this playbook - evolve here first, keep it public-saf
 tags: [system, conventions]
 generated:
   by: claude-code/kernel
-  at: 2026-09-04T00:00:00Z
+  at: 2026-10-29T09:44:52Z
 created: 2026-09-04
 provenance: extracted
 ---
@@ -24,7 +24,7 @@ template every vault is stamped from.
 Treat every change as published, because it is. Nothing here may name a private vault, a client, an
 employer, a person, a machine path, a hostname, or a credential — not in the documents, not in a commit
 message, not in a pull request description. Contexts are described through placeholders
-(`{{CLIENT_NAME}}`, `{{OWNER}}`, `{{OS_DIR}}`) and examples are invented (`Acme Corp`, `Jane Doe`). If a
+(`{{CLIENT_NAME}}`, `{{OWNER}}`, `{{OS_NAME}}`) and examples are invented (`Acme Corp`, `Jane Doe`). If a
 change cannot be written without naming something real, it belongs in that vault, not here.
 
 ## Evolve here first, then propagate
