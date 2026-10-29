@@ -5,7 +5,7 @@ description: The procedure an agent follows to stand up the knowledge layer from
 tags: [documentation, bootstrap]
 generated:
   by: claude-code/kernel
-  at: 2026-09-04T00:00:00Z
+  at: 2026-10-29T07:36:38Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -28,13 +28,14 @@ the playbook."
 > 🧩 Each vault is self-contained. Once scaffolded it depends on nothing in this repository, so it can be
 > handed to another person or machine whole.
 
+> 🏠 Every vault lives at `~/Projects/personal/os-<context>/`, and the personal OS is `os-personal`. A vault never goes inside a context folder, and its repo is the private `os-<context>` in your personal account, never in a client's organization. A context folder or a client's organization may be handed over to the client one day, and the vault must not go with it.
+
 ---
 
 ## 0. Prerequisites (human)
 
 1. Install your agent CLI (e.g. Claude Code).
-2. Create `~/Projects/personal/` and clone this playbook into it. The playbook and the personal OS
-   both live under `personal/`, alongside one folder per client context:
+2. Create `~/Projects/personal/` and clone this playbook into it. The playbook and every vault live under `personal/`. Each context's project repos go in their own folder beside it, `~/Projects/<context>/`:
    ```bash
    mkdir -p ~/Projects/personal && cd ~/Projects/personal
    git clone <ai-os-playbook remote> ai-os-playbook
@@ -47,8 +48,8 @@ the playbook."
 
 | Profile | When | Folder shape |
 |---|---|---|
-| Multi-context personal | one machine serving several contexts/clients | `~/Projects/<context>/` per context, each with its own `<context>-os/` + folder `CLAUDE.md`; plus `personal-os/` |
-| Dedicated single-context box | a machine provisioned for one context | project repos sit directly under `~/Projects/`; one context-level AI OS `~/Projects/<context>-os/` + `personal-os/` |
+| Multi-context personal | one machine serving several contexts/clients | `~/Projects/<context>/` per context for its project repos, each with a folder `AGENTS.md`; one vault per context at `~/Projects/personal/os-<context>/`, plus `os-personal/` |
+| Dedicated single-context box | a machine provisioned for one context | project repos sit directly under `~/Projects/`; that context's vault at `~/Projects/personal/os-<context>/`, plus `os-personal/` if it belongs on this machine |
 
 Ask the human: which profile, which context(s) live here, and each context's working window + one-line
 description. Capture answers — they fill the placeholders below.
@@ -61,32 +62,29 @@ For each AI OS to create (the personal OS, and one per context on this machine):
 
 1. Copy the scaffold:
    ```bash
-   cp -r ~/Projects/personal/ai-os-playbook/templates/ai-os-scaffold "<target>/<name>-os"
+   cp -r ~/Projects/personal/ai-os-playbook/templates/ai-os-scaffold ~/Projects/personal/os-<name>
    ```
-   (Client contexts live at `~/Projects/<context>/<context>-os`; the personal OS at
-   `~/Projects/personal/<name>-os`.)
+   (`<name>` is the context, as in `os-acme-corp`; the personal OS is `os-personal`. Never put a vault inside a context folder.)
 2. Rename the owner seed note: `people/{{OWNER_SLUG}}.md` → `people/<owner_slug>.md` (snake_case, e.g.
    `people/jane_doe.md`).
 3. Fill placeholders in every file (see the table in §4 — the fill sweeps all `*.md`, including
    `AGENTS.md`). Replace `{{...}}` tokens; delete placeholder lines that don't apply (e.g. the privacy
    rule for a single-party context). The scaffold ships `AGENTS.md` as the canonical kernel contract and
    a `CLAUDE.md` holding the single line `@AGENTS.md`, so Claude Code imports the same rules.
-4. Write the folder rules (context folders only) from `templates/client-AGENTS.md` to
-   `~/Projects/<context>/AGENTS.md`, and put a one-line `CLAUDE.md` (`@AGENTS.md`) beside it.
+4. Write the folder rules (context folders only) from `templates/client-AGENTS.md` to `~/Projects/<context>/AGENTS.md`, and put a one-line `CLAUDE.md` (`@AGENTS.md`) beside it. The folder rules point at the vault in `~/Projects/personal/` and hold nothing private about the client, because the folder may be handed over.
 5. Seed real content: create `organizations/<org_slug>.md`, fill the owner note, and stub the known
    project subfolders under `projects/`. Update `home.md` and the relevant `index.md` files so nothing is
    orphaned.
 6. Initialize git (private remote, if versioning):
    ```bash
-   cd "<target>/<name>-os" && git init && git add -A   # commit only when you approve
-   # always --private for vaults:
-   gh repo create <org-or-username>/<name>-os --private --source=. --remote=origin --push
+   cd ~/Projects/personal/os-<name> && git init && git add -A   # commit only when you approve
+   # always --private, and always in your personal account, never a client's organization:
+   gh repo create <your-username>/os-<name> --private --source=. --remote=origin --push
    ```
 
 Then, once:
 
-7. Write the user config `~/.claude/CLAUDE.md` from `templates/user-CLAUDE.md` (fill the engagements
-   table for the contexts on this machine; keep the generic routing rule verbatim).
+7. Write the user config `~/.claude/CLAUDE.md` from `templates/user-CLAUDE.md` (fill the engagements table for the contexts on this machine, naming each context's vault; keep the generic routing rule verbatim).
 8. Install the Dream launcher so `/dream` works everywhere. It is a launcher only — the procedure itself
    ships inside each vault at `system/dream.md`:
    ```bash
@@ -99,12 +97,10 @@ Then, once:
 
 ## 3. Verify
 
-- Each `<...>-os/` has `AGENTS.md` (plus the one-line `CLAUDE.md` shim), `system/`, `home.md`, the root
-  `index.md` (with `okf_version: "0.2"`), `log.md`, `_meta/taxonomy.md`, `.obsidian/`, and opens in
-  Obsidian with a connected graph (no orphan `home`).
+- Each `~/Projects/personal/os-<...>/` vault has `AGENTS.md` (plus the one-line `CLAUDE.md` shim), `system/`, `home.md`, the root `index.md` (with `okf_version: "0.2"`), `log.md`, `_meta/taxonomy.md`, `.obsidian/`, and opens in Obsidian with a connected graph (no orphan `home`).
+- No vault sits inside a context folder, and every vault's remote is a private repo in your personal account (`gh repo view --json visibility` says `PRIVATE`).
 - `python3 ~/Projects/personal/ai-os-playbook/scripts/okf_check.py <vault>` reports no failures.
-- From a context folder, ask the agent a context question — it should consult that context's `-os/`
-  vault without being told the path (the generic routing rule in `~/.claude/CLAUDE.md`).
+- From a context folder, ask the agent a context question. It should consult `~/Projects/personal/os-<context>/` without being told the path (the generic routing rule in `~/.claude/CLAUDE.md`).
 - The dream pass runs, quarantines (never deletes), and writes `_insights.md` + a report.
 
 ---
@@ -122,7 +118,7 @@ Tokens used across the templates. Fill per AI OS:
 | `{{LOCATION}}` | Base location | `Anytown` |
 | `{{EMAIL}}` | Contact email | `you@example.com` |
 | `{{OS_NAME}}` | Display name of the OS | `Acme Corp OS` |
-| `{{OS_DIR}}` | Vault folder name | `acme-corp-os` |
+| `{{OS_DIR}}` | Vault folder and repo name | `os-acme-corp` |
 | `{{SCOPE}}` / `{{SCOPE_SHORT}}` | What this OS covers | `your Acme Corp work` / `Acme Corp` |
 | `{{CLIENT_NAME}}` | Context/org name | `Acme Corp` |
 | `{{CLIENT_DESCRIPTION}}` | One-liner about the context | _(from intake)_ |
@@ -162,7 +158,7 @@ Tokens used across the templates. Fill per AI OS:
 Wire a recurring deep-clean with the `/schedule` skill (cloud routine) or a local cron, e.g. a weekly
 unattended pass per vault:
 
-> `/schedule` → new routine → weekly → command: `/dream ~/Projects/<context>/<context>-os --mode unattended`
+> `/schedule` → new routine → weekly → command: `/dream ~/Projects/personal/os-<context> --mode unattended`
 
 Start with one vault, review the first real run's report, then expand. Unattended runs only quarantine
 to `.trash/` — they never delete — so they're safe to leave running.

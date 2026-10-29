@@ -13,8 +13,7 @@ evolve its own pass without this skill changing.
 
 ## 1. Resolve the vault
 
-The vault root is the path in `$ARGUMENTS`, else the `*-os/` vault in or under the current directory,
-else ask. Confirm you have a vault root: it contains `AGENTS.md`, a `system/` directory, and `home.md`.
+The vault root is the path in `$ARGUMENTS`, else the `os-*/` vault the current directory is in, else the only `os-*/` vault under it, else ask. Vaults live at `~/Projects/personal/os-<context>/`, so from a context folder `~/Projects/<context>/` the vault is `~/Projects/personal/os-<context>/`. Confirm you have a vault root: it contains `AGENTS.md`, a `system/` directory, and `home.md`.
 
 ## 2. Read the procedure
 
