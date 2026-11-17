@@ -42,5 +42,4 @@ The layers:
 AI OS routing rule (generic — works for any context, no per-context edits):
 > When working under `~/Projects/<context>/`, look for that context's vault at `~/Projects/personal/os-<context>/` (the engagements table names it when the folder and vault names differ). If one exists, that is that context's AI OS: read it for context before asking me something it might already know (start at its `home.md`), and keep it updated per its own `AGENTS.md` and `system/conventions.md`. When you learn something durable while working in that context, tell me and offer to record it in the vault. The personal layer is `~/Projects/personal/{{PERSONAL_OS}}/`. The OS holds context, not code: code stays in the project repos, and the OS holds reusable context and pointers to it. One-off details (a specific bug, a local setting) stay in the project; the bar for the vault is "useful beyond this one task". Never mention a vault in a context folder, its repos, or their commits and pull requests.
 
-To deep-clean a vault, run its dream pass — `/dream` in Claude Code, or follow the vault's own
-`system/dream.md` with any other agent.
+To deep-clean a vault, run its dream pass: follow the vault's own `system/dream.md`.

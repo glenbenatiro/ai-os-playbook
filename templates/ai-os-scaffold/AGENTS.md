@@ -151,8 +151,8 @@ the repo. Always keep the raw **and** a digest, and link them.
 Periodically (or on a schedule), run the consolidation pass specified in [dream](/system/dream.md): a deep
 comb over the vault that re-links, repairs frontmatter, merges duplicates, refactors, safely quarantines
 stale notes to `.trash/`, rebuilds the `index.md` files + MOCs, regenerates `_insights.md`, and validates
-OKF conformance. The procedure is plain markdown, so any agent can follow it; in Claude Code the `/dream`
-skill runs it. Do it after big imports or when the graph feels messy. It never hard-deletes; it reports
+OKF conformance. The procedure is plain markdown, so any agent can follow it.
+Do it after big imports or when the graph feels messy. It never hard-deletes; it reports
 what needs {{OWNER_SHORT}}'s decision.
 
 ## Style

@@ -5,7 +5,7 @@ description: How to change this playbook - evolve here first, keep it public-saf
 tags: [system, conventions]
 generated:
   by: claude-code/kernel
-  at: 2026-10-29T09:44:52Z
+  at: 2026-11-17T06:42:58Z
 created: 2026-09-04
 provenance: extracted
 ---
@@ -51,13 +51,12 @@ operated after this repository disappeared. If not, the rule belongs inside the 
 
 ```bash
 python3 scripts/okf_check.py templates/ai-os-scaffold --allow-placeholders
-python3 scripts/okf_check.py . --exclude templates --exclude skills
+python3 scripts/okf_check.py . --exclude templates
 ```
 
 Both must report no failures. `--allow-placeholders` exists because the scaffold ships `{{TOKENS}}` where
 a real datetime or actor will go. `templates/` is checked on its own because it is a bundle in its own
-right, and `skills/` is excluded because a Claude Code `SKILL.md` carries that tool's frontmatter rather
-than OKF's. Add `--strict` to also run the PyYAML parse check when it is installed.
+right. Add `--strict` to also run the PyYAML parse check when it is installed.
 
 ## Conventions
 
