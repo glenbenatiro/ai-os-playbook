@@ -5,7 +5,7 @@ description: Changes to the playbook itself - the canonical structure and the bo
 tags: [changelog]
 generated:
   by: claude-code/kernel
-  at: 2026-10-29T09:44:52Z
+  at: 2026-11-17T06:42:58Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -13,6 +13,10 @@ provenance: extracted
 # Changelog — AI OS Playbook
 
 Changes to the playbook itself (the canonical structure + bootstrap). Conventional-commit style.
+
+## 2026-11-17 - The Claude Code launcher is removed
+
+The `skills/` folder is gone. A vault's consolidation pass is run by following its own `system/dream.md`, with any agent, so nothing has to be installed on a machine. The README, the bootstrap steps, the user config template, and the scaffold no longer mention a launcher.
 
 ## 2026-10-29 - Vaults live outside context folders
 
@@ -24,7 +28,6 @@ A context folder, or a client's GitHub organization, may be handed over to the c
 - **`BOOTSTRAP.md`**: a new note says where vaults live and why. The machine profiles, the scaffold and git steps, the checks and the scheduled dream pass use `~/Projects/personal/os-<context>/`, and the `{{OS_DIR}}` example is `os-acme-corp`.
 - **`templates/user-CLAUDE.md`**: the layers and the routing rule point at `~/Projects/personal/os-<context>/`, and the personal OS is `~/Projects/personal/{{PERSONAL_OS}}/`, a new placeholder. It is now the only file that points at vaults, so it also carries the rules the folder file used to: offer to record durable learnings, keep one-off details in the project, and never mention a vault in a context folder or its repos.
 - **`templates/client-AGENTS.md`**: the folder file no longer describes or points at the OS. Nothing private goes into the folder or its repos, and nothing in them points outside the folder. The `{{OS_DIR}}` placeholder, used only there, is retired.
-- **`skills/dream/SKILL.md`**: looks for `os-*/` vaults instead of `*-os/`, and knows where a context's vault lives.
 
 The scaffold itself is unchanged, because a vault never names its own location. To move an existing vault, rename its folder and its repo. GitHub redirects the old repo URL as long as no new repo is created at the old name.
 
@@ -45,8 +48,8 @@ Four changes, all of which propagate to every live vault.
   reason.
 - **Vaults are self-contained.** The scaffold no longer refers to this repository or to any machine path,
   and the contract states the rule outright: everything needed to operate a vault lives inside it. The
-  consolidation pass moves from `skills/dream/SKILL.md` into the vault at `system/dream.md`, tool-agnostic
-  and readable by any agent; the Claude skill becomes a launcher that reads the vault's own copy.
+  consolidation pass moves into the vault at `system/dream.md`, tool-agnostic
+  and readable by any agent.
 - **Conformance is testable.** New `scripts/okf_check.py` (stdlib only) verifies a bundle, and
   `scripts/okf_migrate_0_1_to_0_2.py` performs the migration idempotently. This repository is now an OKF
   bundle itself, with its own `AGENTS.md`, `index.md` and document frontmatter.
@@ -100,7 +103,7 @@ Each vault is now an OKF knowledge bundle. Changes to the canonical scaffold + c
   (verified to resolve in Obsidian's graph, with ghost nodes intact).
 - **Reserved files:** per-folder `index.md` (root one declares `okf_version: "0.1"`) for
   progressive disclosure; `System/Changelog.md` → root `log.md` (OKF date-grouped history).
-- **`/dream`** rewritten as the OKF maintenance + migration engine (re-link, repair, rebuild `index.md`,
+- **The dream pass** rewritten as the OKF maintenance + migration engine (re-link, repair, rebuild `index.md`,
   validate conformance, and migrate pre-OKF vaults).
 - New `references/okf_mapping.md` documents the OKF↔AI-OS mapping; `README.md`, `BOOTSTRAP.md`,
   `templates/user-CLAUDE.md`, and `templates/client-CLAUDE.md` updated to the new conventions.
@@ -121,7 +124,7 @@ Each vault is now an OKF knowledge bundle. Changes to the canonical scaffold + c
   routing section).
 - LLM-agnostic entrypoint: `AGENTS.md` alongside `CLAUDE.md`, so any agent (Codex, Cursor, Gemini CLI,
   Windsurf, …) boots into kernel mode without forking the rules.
-- `skills/dream/`: the `/dream` consolidation skill — re-link, repair, merge, refactor, safe-quarantine
+- The consolidation pass: re-link, repair, merge, refactor, safe-quarantine
   to `_dump/`, rebuild MOCs + `_insights.md`; interactive and unattended modes.
 - `README.md` (layered model, evolve-here-first rule) and `BOOTSTRAP.md` (machine profiles, placeholder
   reference, privacy variants, `/schedule` wiring).

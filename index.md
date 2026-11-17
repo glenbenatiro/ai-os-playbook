@@ -19,4 +19,3 @@ OKF v0.2 knowledge bundle — progressive-disclosure index of the repository roo
 * [templates/](templates/) — the canonical vault scaffold and the folder/user rules templates.
 * [scripts/](scripts/) — OKF conformance checker and the v0.1 to v0.2 migrator.
 * [references/](references/) — the OKF mapping this structure conforms to.
-* [skills/](skills/) — the `/dream` launcher for Claude Code.

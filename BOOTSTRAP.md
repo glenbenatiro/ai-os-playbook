@@ -5,7 +5,7 @@ description: The procedure an agent follows to stand up the knowledge layer from
 tags: [documentation, bootstrap]
 generated:
   by: claude-code/kernel
-  at: 2026-10-29T09:44:52Z
+  at: 2026-11-17T06:42:58Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -85,13 +85,7 @@ For each AI OS to create (the personal OS, and one per context on this machine):
 Then, once:
 
 7. Write the user config `~/.claude/CLAUDE.md` from `templates/user-CLAUDE.md` (fill the engagements table for the contexts on this machine, naming each context's vault; keep the generic routing rule verbatim).
-8. Install the Dream launcher so `/dream` works everywhere. It is a launcher only — the procedure itself
-   ships inside each vault at `system/dream.md`:
-   ```bash
-   mkdir -p ~/.claude/skills/dream
-   cp ~/Projects/personal/ai-os-playbook/skills/dream/SKILL.md ~/.claude/skills/dream/SKILL.md
-   ```
-9. Run a first dream pass per vault to validate links and generate `_insights.md`.
+8. Run a first dream pass per vault to validate links and generate `_insights.md`.
 
 ---
 
@@ -158,7 +152,7 @@ Tokens used across the templates. Fill per AI OS:
 Wire a recurring deep-clean with the `/schedule` skill (cloud routine) or a local cron, e.g. a weekly
 unattended pass per vault:
 
-> `/schedule` → new routine → weekly → command: `/dream ~/Projects/personal/os-<context> --mode unattended`
+> `/schedule` → new routine → weekly → prompt: "Run the dream pass in `~/Projects/personal/os-<context>/system/dream.md`, unattended"
 
 Start with one vault, review the first real run's report, then expand. Unattended runs only quarantine
 to `.trash/` — they never delete — so they're safe to leave running.

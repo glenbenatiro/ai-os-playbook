@@ -16,8 +16,8 @@ A **consolidation pass** ("dreaming") over this vault. Day-to-day editing leaves
 mentions, drifted frontmatter, near-duplicate notes, stale entries, stale `index.md`. This procedure
 combs the whole vault and grooms it back to the conventions — **without ever destroying information**.
 
-It is plain markdown on purpose: any agent can follow it step by step. In Claude Code, the `/dream`
-skill runs it. Do a pass after a big import, when the graph feels messy, or on a schedule.
+It is plain markdown on purpose: any agent can follow it step by step.
+Do a pass after a big import, when the graph feels messy, or on a schedule.
 
 ## 0. Resolve target & mode
 

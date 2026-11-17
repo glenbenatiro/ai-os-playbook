@@ -5,7 +5,7 @@ description: A portable, LLM-agnostic structure for building AI Operating System
 tags: [documentation, ai_os]
 generated:
   by: claude-code/kernel
-  at: 2026-10-29T09:44:52Z
+  at: 2026-11-17T06:42:58Z
 created: 2026-06-11
 provenance: extracted
 ---
@@ -79,8 +79,6 @@ ai-os-playbook/
   scripts/
     okf_check.py             # conformance checker (stdlib only)
     okf_migrate_0_1_to_0_2.py # carries a v0.1 bundle to v0.2
-  skills/
-    dream/SKILL.md           # /dream launcher for Claude Code (install to ~/.claude/skills/)
   templates/
     user-CLAUDE.md           # -> ~/.claude/CLAUDE.md
     client-AGENTS.md         # -> ~/Projects/<context>/AGENTS.md (+ a one-line CLAUDE.md shim)
@@ -111,7 +109,7 @@ Vaults hold private operating context (people, decisions, working detail). If yo
 - Linking: bundle-relative markdown links `[Text](/folder/slug.md)` for every entity; stubs so links
   always resolve; link up + across.
 - Lifecycle: `inbox → wiki → schema`. Periodic deep-clean via the vault's own `system/dream.md` (also
-  performs the OKF migration); in Claude Code the `/dream` skill runs it.
+  performs the OKF migration).
 
 ## How to evolve the structure (the rule that keeps it scalable)
 
@@ -128,7 +126,7 @@ See `AGENTS.md` for the full working rules for this repository.
 - New machine: read `BOOTSTRAP.md`.
 - New context on an existing machine: copy `templates/ai-os-scaffold/` → `~/Projects/personal/os-<context>/`, fill placeholders, `git init`, write `~/Projects/<context>/AGENTS.md` from `templates/client-AGENTS.md` (plus a one-line `CLAUDE.md` shim).
 - Check a vault: `python3 scripts/okf_check.py <vault>`.
-- Tidy a vault: run its dream pass (`/dream` in Claude Code).
+- Tidy a vault: run its dream pass, `system/dream.md`.
 
 ## Credits
 
